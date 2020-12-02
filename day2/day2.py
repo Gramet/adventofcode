@@ -24,8 +24,8 @@ def is_valid_pos(line):
         return False
 
 
-with open('day2_input', 'r') as file:
-   lines = file.readlines()
+with open('day2_input', 'r') as f:
+   lines = f.readlines()
 
 count = 0
 for line in lines:
