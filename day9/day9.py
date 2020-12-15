@@ -1,5 +1,6 @@
-with open('input', 'r') as f:
-   lines = f.readlines()
+with open("input", "r") as f:
+    lines = f.readlines()
+
 
 def two_sum(l, target):
     s = set(l)
@@ -8,6 +9,7 @@ def two_sum(l, target):
         if diff in s:
             return diff * num
     return None
+
 
 nums = []
 for ind, l in enumerate(lines):
