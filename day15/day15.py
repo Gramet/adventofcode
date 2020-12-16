@@ -14,4 +14,4 @@ for t, num in enumerate(starts):
 for t in range(len(starts), 30000000):
     d[lastnum], lastnum = t, t - d[lastnum]
 
-print(t + 1, lastnum)  # , d_cop, d)
+print(t + 1, lastnum)
