@@ -43,4 +43,5 @@ for k, v in sorted(found.items()):
     print(k, v)
     s += list(v)[0] + ","
 
+s = s[:-1]
 print(s)
