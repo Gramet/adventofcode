@@ -1,3 +1,5 @@
+from pathlib import Path
+
 REQUIRED_KEYS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 ALL_KEYS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"]
 
@@ -62,6 +64,21 @@ def check_data(d):
     return True
 
 
+def has_all_fields(passport_lines):
+    d = {}
+    for line in passport_lines:
+        infos = line.split(" ")
+        for info in infos:
+            k = info.split(":")[0]
+            v = info.split(":")[1]
+            d[k] = v.strip("\n")
+
+    for k in REQUIRED_KEYS:
+        if k not in d:
+            return False
+    return True
+
+
 def is_valid(passport_lines):
     d = {}
     for line in passport_lines:
@@ -78,20 +95,40 @@ def is_valid(passport_lines):
     return check_data(d)
 
 
-with open("day4_input", "r") as f:
-    lines = f.readlines()
+class Solution:
+    def __init__(self):
+        with open(Path(__file__).parent / "input", "r") as f:
+            self.input = f.readlines()
 
-buff = []
-num_valid = 0
-for line in lines:
-    if line == "\n":
-        if is_valid(buff):
-            num_valid += 1
+        total_buff = []
         buff = []
-    else:
-        buff.append(line)
+        for line in self.input:
+            if line == "\n":
+                total_buff.append(buff)
+                buff = []
+            else:
+                buff.append(line)
+        total_buff.append(buff)
+        self.input = total_buff
 
-if is_valid(buff):
-    num_valid += 1
+    def solve_part_1(self):
+        answer = sum(has_all_fields(x) for x in self.input)
+        print(answer)
+        return answer
 
-print(f"{num_valid} valid passports")
+    def solve_part_2(self):
+        answer = sum(is_valid(x) for x in self.input)
+        print(answer)
+        return answer
+
+    def save_results(self):
+        with open(Path(__file__).parent / "part1", "w") as opened_file:
+            opened_file.write(str(self.solve_part_1()))
+
+        with open(Path(__file__).parent / "part2", "w") as opened_file:
+            opened_file.write(str(self.solve_part_2()))
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    solution.save_results()
