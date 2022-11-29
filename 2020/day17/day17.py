@@ -1,8 +1,9 @@
 with open("input", "r") as f:
     lines = [l.strip() for l in f.readlines()]
 
-import numpy as np
 from itertools import product
+
+import numpy as np
 
 deltas = list(product([-1, 0, 1], repeat=3))
 deltas.remove((0, 0, 0))
