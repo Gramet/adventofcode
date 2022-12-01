@@ -4,7 +4,8 @@ My solution for Advent of Code problems
 # Install
 
 1. Get your AoC session cookie and put it in a `.env` (session=XXXXX)
-2. Install requirements using `pipenv install`
+2. Also set your email in `.env` to fill request headers
+3. Install requirements using `pipenv install`
 
 ## Helpers
 - `python src/prepare_year.py 2022`: Will create the directories for each day using the template in `year_template`

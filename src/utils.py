@@ -10,6 +10,10 @@ SESSION_TOKEN = os.environ["session"]
 INPUT_URL = "https://adventofcode.com/{}/day/{}/input"
 SUBMIT_URL = "https://adventofcode.com/{}/day/{}/answer"
 DAY_TEMPLATE = Path(__file__).parent.parent / "year_template" / "template"
+REQUEST_HEADERS = {
+    "User-Agent": "https://github.com/Gramet/adventofcode",
+    "From": os.environ["email"],
+}
 
 
 def get_year_path(year: int):

@@ -4,7 +4,7 @@ Take as input the day, part and year (defaults to 2022)
 import fire
 import requests
 
-from utils import SESSION_TOKEN, SUBMIT_URL, get_solution
+from utils import REQUEST_HEADERS, SESSION_TOKEN, SUBMIT_URL, get_solution
 
 
 def submit_solution(day: int, part: int, year: int = 2022) -> str:
@@ -13,7 +13,11 @@ def submit_solution(day: int, part: int, year: int = 2022) -> str:
     output = get_solution(year, day, part)
     data = {"level": part, "answer": output}
     response = requests.post(
-        submit_url, data, cookies={"session": SESSION_TOKEN}, timeout=5
+        submit_url,
+        data,
+        cookies={"session": SESSION_TOKEN},
+        headers=REQUEST_HEADERS,
+        timeout=5,
     )
     if response.status_code != 200:
         message = "Error submitting solution online. Returned non 200 status code"

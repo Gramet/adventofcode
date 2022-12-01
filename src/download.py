@@ -2,8 +2,8 @@
 import fire
 import requests
 
-from utils import (INPUT_URL, SESSION_TOKEN, input_data_is_downloaded,
-                   save_input)
+from utils import (INPUT_URL, REQUEST_HEADERS, SESSION_TOKEN,
+                   input_data_is_downloaded, save_input)
 
 
 def download_input(
@@ -14,7 +14,10 @@ def download_input(
     if not input_data_is_downloaded(year, day):
         input_url = INPUT_URL.format(year, day)
         html_data = requests.get(
-            input_url, cookies={"session": SESSION_TOKEN}, timeout=5
+            input_url,
+            cookies={"session": SESSION_TOKEN},
+            headers=REQUEST_HEADERS,
+            timeout=5,
         )
         save_input(year, day, html_data.text)
     else:
