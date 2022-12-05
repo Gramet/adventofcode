@@ -10,6 +10,7 @@ fire ="*"
 python-dotenv="*"
 src = {editable = true, path = "."}
 pylint = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 pytest = "*"

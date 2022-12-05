@@ -1,6 +1,18 @@
 # adventofcode
 My solution for Advent of Code problems
 
+# Completion
+<!-- begin-year-badge -->
+[![](https://img.shields.io/badge/2015-0%20stars-ef0f14)](./2015)
+[![](https://img.shields.io/badge/2016-0%20stars-ef0f14)](./2016)
+[![](https://img.shields.io/badge/2017-0%20stars-ef0f14)](./2017)
+[![](https://img.shields.io/badge/2018-0%20stars-ef0f14)](./2018)
+[![](https://img.shields.io/badge/2019-9%20stars-98471a)](./2019)
+[![](https://img.shields.io/badge/2020-12%20stars-8b501b)](./2020)
+[![](https://img.shields.io/badge/2021-0%20stars-ef0f14)](./2021)
+[![](https://img.shields.io/badge/2022-10%20stars-944a1b)](./2022)
+<!-- end-year-badge -->
+
 # Install
 
 1. Get your AoC session cookie and put it in a `.env` (session=XXXXX)
