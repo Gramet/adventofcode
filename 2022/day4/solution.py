@@ -9,10 +9,12 @@ class Solution:
     def solve_part_1(self):
         answer = 0
         for pair in self.input:
-            range1, range2 = pair.split(',')
-            start1, end1 = map(int, range1.split('-'))
-            start2, end2 = map(int, range2.split('-'))
-            if (start1 <= start2 and end1 >= end2) or (start1 >= start2 and end1 <= end2):
+            range1, range2 = pair.split(",")
+            start1, end1 = map(int, range1.split("-"))
+            start2, end2 = map(int, range2.split("-"))
+            if (start1 <= start2 and end1 >= end2) or (
+                start1 >= start2 and end1 <= end2
+            ):
                 answer += 1
         print(answer)
         return answer
@@ -20,10 +22,13 @@ class Solution:
     def solve_part_2(self):
         answer = 0
         for pair in self.input:
-            range1, range2 = pair.split(',')
-            start1, end1 = map(int, range1.split('-'))
-            start2, end2 = map(int, range2.split('-'))
-            if not((start1 < start2 and end1 < start2) or (start1 > start2 and start1 > end2)):
+            range1, range2 = pair.split(",")
+            start1, end1 = map(int, range1.split("-"))
+            start2, end2 = map(int, range2.split("-"))
+            if not (
+                (start1 < start2 and end1 < start2)
+                or (start1 > start2 and start1 > end2)
+            ):
                 answer += 1
         print(answer)
         return answer

@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from math import sqrt
-from utils import SESSION_TOKEN
+from utils import SESSION_TOKEN, REQUEST_HEADERS
 
 MD_BADGE_URL = "https://img.shields.io/badge/{year}-{stars}%20stars-{color}"
 DELIM_BEGIN = "<!-- begin-year-badge -->"
@@ -9,7 +9,9 @@ DELIM_END = "<!-- end-year-badge -->"
 
 
 def rgb2hex(r, g, b):
-    def f(x): return max(0, min(255, round(x * 255)))
+    def f(x):
+        return max(0, min(255, round(x * 255)))
+
     return f"{f(r):02x}{f(g):02x}{f(b):02x}"
 
 
@@ -25,11 +27,13 @@ def interpolate(c0, c1, t):
 
 def get_stars():
     html_data = requests.get(
-        "https://adventofcode.com/events", cookies={"session": SESSION_TOKEN}, timeout=5
+        "https://adventofcode.com/events",
+        cookies={"session": SESSION_TOKEN},
+        timeout=5,
+        headers=REQUEST_HEADERS,
     )
     parsed_html = BeautifulSoup(html_data.text, features="html.parser")
-    events = parsed_html.body.find_all('div', attrs={
-        'class': 'eventlist-event'})
+    events = parsed_html.body.find_all("div", attrs={"class": "eventlist-event"})
 
     years = []
     stars = []
@@ -48,7 +52,7 @@ def get_text(years, stars):
     for year, star in zip(years, stars):
         # sqrt(x) > x, for x in [0, 1], so we get to green faster
         trajectory = sqrt(star / 50)
-        color = interpolate('ef0f14', '239323', trajectory)
+        color = interpolate("ef0f14", "239323", trajectory)
 
         badge = f"![]({MD_BADGE_URL.format(year=year, stars=star, color=color)})"
         badge = f"[{badge}](./{year})"
@@ -58,7 +62,7 @@ def get_text(years, stars):
 
 
 def update_readme(text):
-    with open('README.md', "rt") as fp:
+    with open("README.md", "rt") as fp:
         lines = [x.strip() for x in fp]
 
     for i, line in enumerate(lines):
@@ -69,14 +73,14 @@ def update_readme(text):
 
     out = lines[: start + 1] + text + lines[end:]
 
-    with open('README.md', "wt") as fp:
+    with open("README.md", "wt") as fp:
         for line in out:
             fp.write(f"{line}\n")
 
     print("README updated!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     years, stars = get_stars()
     out_text = get_text(years, stars)
     update_readme(out_text)

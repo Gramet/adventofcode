@@ -1,7 +1,7 @@
 from pathlib import Path
 from string import ascii_letters
 
-priority = {letter: i+1 for i, letter in enumerate(ascii_letters)}
+priority = {letter: i + 1 for i, letter in enumerate(ascii_letters)}
 
 
 class Solution:
@@ -12,7 +12,7 @@ class Solution:
     def solve_part_1(self):
         answer = 0
         for bag in self.input:
-            comp1, comp2 = bag[:round(len(bag)//2)], bag[round(len(bag)//2):]
+            comp1, comp2 = bag[: round(len(bag) // 2)], bag[round(len(bag) // 2) :]
             common_item = set(comp1).intersection(set(comp2))
             answer += priority[list(common_item)[0]]
         print(answer)
@@ -21,8 +21,11 @@ class Solution:
     def solve_part_2(self):
         answer = 0
         for i in range(0, len(self.input), 3):
-            bag1, bag2, bag3 = set(self.input[i].strip()), set(
-                self.input[i+1].strip()), set(self.input[i+2].strip())
+            bag1, bag2, bag3 = (
+                set(self.input[i].strip()),
+                set(self.input[i + 1].strip()),
+                set(self.input[i + 2].strip()),
+            )
             common_item = bag1.intersection(bag2, bag3)
             answer += priority[list(common_item)[0]]
         print(answer)
