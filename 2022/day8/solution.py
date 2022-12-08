@@ -34,7 +34,6 @@ class Solution:
             self.trees = np.array(
                 [[int(x) for x in line.strip()] for line in self.input]
             )
-            print(self.trees)
 
     def solve_part_1(self):
         answer = 0
