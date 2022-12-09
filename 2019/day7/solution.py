@@ -25,6 +25,7 @@ class IntCodeComputer:
             6: self.jump_if_false,
             7: self.less_than,
             8: self.equals,
+            99: self.pass_,
         }
 
     def get_value(self, val, mode):
@@ -118,6 +119,9 @@ class IntCodeComputer:
         self.idx += param_length + 1
         logging.debug(f"equals %i %i -> %i", val1, val2, pos)
 
+    def pass_(self, params):
+        pass
+
     def parse_opcode(self, val):
         opcode = int(str(val)[-2:])
         params = str(val)[:-2][::-1]
@@ -127,12 +131,9 @@ class IntCodeComputer:
         while True:
             op, params = self.parse_opcode(self.program[self.idx])
             logging.debug("%i %s", op, params)
-            if op == 99:
+            self.op_dict[op](params)
+            if op in [4, 99]:
                 break
-            else:
-                self.op_dict[op](params)
-                if op == 4:
-                    break
         return self.answer, op
 
 

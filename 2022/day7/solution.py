@@ -30,7 +30,7 @@ def list_content(input, start_idx, cur_dir):
 
 
 def parse_terminal(input):
-    cur_dir = "root"
+    cur_dir = None
     tree = {}
     for i, line in enumerate(input):
         line = line.strip()
@@ -73,8 +73,7 @@ class Solution:
         tree = parse_terminal(self.input)
         for dir in tree:
             dir_size = compute_dir_size(dir, tree)
-
-        free_space = 70000000 - tree["root//"]["dirsize"]
+        free_space = 70000000 - tree["/"]["dirsize"]
         needed_space = 30000000 - free_space
 
         answer = free_space
