@@ -47,6 +47,14 @@ def update_t(H, T):
             raise ValueError(f"{diff} not supported")
 
 
+def update_tails(H, T, visited):
+    T[0] = update_t(H, T[0])
+    for i in range(len(T) - 1):
+        T[i + 1] = update_t(T[i], T[i + 1])
+    visited.add(T[-1])
+    return T, visited
+
+
 def update(H, T, cmd, visited):
     if visited is None:
         visited = set()
@@ -56,31 +64,22 @@ def update(H, T, cmd, visited):
         case "R":
             for _ in range(steps):
                 H = (H[0] + 1, H[1])
-                T[0] = update_t(H, T[0])
-                for i in range(len(T) - 1):
-                    T[i + 1] = update_t(T[i], T[i + 1])
-                visited.add(T[-1])
+                T, visited = update_tails(H, T, visited)
         case "L":
             for _ in range(steps):
                 H = (H[0] - 1, H[1])
-                T[0] = update_t(H, T[0])
-                for i in range(len(T) - 1):
-                    T[i + 1] = update_t(T[i], T[i + 1])
-                visited.add(T[-1])
+                T, visited = update_tails(H, T, visited)
+
         case "U":
             for _ in range(steps):
                 H = (H[0], H[1] + 1)
-                T[0] = update_t(H, T[0])
-                for i in range(len(T) - 1):
-                    T[i + 1] = update_t(T[i], T[i + 1])
-                visited.add(T[-1])
+                T, visited = update_tails(H, T, visited)
+
         case "D":
             for _ in range(steps):
                 H = (H[0], H[1] - 1)
-                T[0] = update_t(H, T[0])
-                for i in range(len(T) - 1):
-                    T[i + 1] = update_t(T[i], T[i + 1])
-                visited.add(T[-1])
+                T, visited = update_tails(H, T, visited)
+
     return H, T, visited
 
 
