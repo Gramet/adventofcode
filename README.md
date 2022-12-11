@@ -16,7 +16,7 @@ My solution for Advent of Code problems
 # Install
 
 1. Get your AoC session cookie and put it in a `.env` (session=XXXXX)
-2. Also set your email in `.env` to fill request headers
+2. Also set your email in `.env` to fill request headers (email=XXXXXX)
 3. Install requirements using `pipenv install`
 
 ## Helpers
