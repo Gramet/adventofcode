@@ -11,6 +11,7 @@ python-dotenv="*"
 src = {editable = true, path = "."}
 pylint = "*"
 beautifulsoup4 = "*"
+tqdm = "*"
 
 [dev-packages]
 pytest = "*"

@@ -11,9 +11,9 @@ def addx(add_val, list_x, crt, crt_pos):
 
 def update_crt(signal, crt_pos, crt):
     if abs(signal - (crt_pos % 40)) <= 1:
-        crt += '#'
+        crt += "#"
     else:
-        crt += '.'
+        crt += "."
     crt_pos += 1
     return crt, crt_pos
 
@@ -21,14 +21,14 @@ def update_crt(signal, crt_pos, crt):
 def read_cpu_signal(signal):
     crt_pos = 0
     list_x = [1]
-    crt = ''
+    crt = ""
     for line in signal:
-        match line.strip().split(' ')[0]:
+        match line.strip().split(" ")[0]:
             case "noop":
                 crt, crt_pos = update_crt(list_x[-1], crt_pos, crt)
                 list_x.append(list_x[-1])
             case "addx":
-                add_val = int(line.strip().split(' ')[1])
+                add_val = int(line.strip().split(" ")[1])
                 list_x, crt, crt_pos = addx(add_val, list_x, crt, crt_pos)
 
     return list_x, crt
@@ -43,7 +43,7 @@ class Solution:
         signals, _ = read_cpu_signal(self.input)
         answer = 0
         for i in range(20, 221, 40):
-            answer += signals[i-1]*i
+            answer += signals[i - 1] * i
         print(answer)
         return answer
 
