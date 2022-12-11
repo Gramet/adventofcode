@@ -1,22 +1,8 @@
+from pathlib import Path
 import numpy as np
 from scipy.signal import convolve2d
 
-with open("input", "r") as f:
-    lines = f.readlines()
-
 char_map = {".": 0, "#": 1}
-
-tiles = {}
-for line in lines:
-    if line.startswith("Tile"):
-        tile_id = int(line[5:9])
-        tile = np.zeros((10, 10))
-        row = 0
-    elif line.startswith(".") or line.startswith("#"):
-        tile[row] = np.array([char_map[x] for x in line.strip()])
-        row += 1
-    elif line == "\n":
-        tiles[tile_id] = tile
 
 
 def find_neighbours(id, tiles):
@@ -33,7 +19,6 @@ def find_neighbours(id, tiles):
         tile[:, 0][::-1],
         tile[:, -1][::-1],
     ]
-    # print(sides)
     for neigh_id, neigh_tile in tiles.items():
         if neigh_id == id:
             continue
@@ -48,18 +33,6 @@ def find_neighbours(id, tiles):
     return neighbours
 
 
-edges = []
-for tile_id in tiles:
-    if len(find_neighbours(tile_id, tiles)) == 2:
-        edges.append(tile_id)
-        print(tile_id, find_neighbours(tile_id, tiles))
-print(edges)
-prod = 1
-for edge in edges:
-    prod *= edge
-print(f"Part 1: {prod}")
-
-
 def find_neighbours_sides(id, tiles):
     neighbours = []
     tile = tiles[id]
@@ -69,7 +42,7 @@ def find_neighbours_sides(id, tiles):
         tile[-1, :],
         tile[:, 0],
         tile[:, -1],
-    ]  # , tile[0,:][::-1], tile[-1, :][::-1], tile[:, 0][::-1], tile[:, -1][::-1]]
+    ]
     neigh_sides = []
     for neigh_id, neigh_tile in tiles.items():
         if neigh_id == id:
@@ -215,15 +188,6 @@ def build_mat(tiles):
                     row.append(nxt)
                     current = nxt
                     break
-    """
-    print(row)
-    print(tiles[row[0]], tiles[row[1]], tiles[row[2]])
-    for t in row:
-        tiles[t] = np.flipud(tiles[t])
-    for t in row:
-        tiles_neigh[t] = find_neighbours_sides(t, tiles)
-    dir2 = tiles_neigh[start][1][1][0]
-    print(dir2)"""
 
     cols = []
     for new_start in row:
@@ -266,17 +230,14 @@ def build_mat(tiles):
                         current = nxt
                         break
         cols.append(col)
-    print(cols)
 
     rows = np.transpose(np.array(cols))
-    print(rows)
 
     big_mat = np.zeros((int(np.sqrt(len(tiles))) * 10, int(np.sqrt(len(tiles))) * 10))
     for r_id, r in enumerate(rows):
         for c_id, c in enumerate(r):
             big_mat[r_id * 10 : (r_id + 1) * 10, c_id * 10 : (c_id + 1) * 10] = tiles[c]
 
-    # print(big_mat)
     to_del = [x for x in range(len(big_mat)) if x % 10 == 0 or x % 10 == 9]
     big_mat = np.delete(big_mat, to_del, 0)
     big_mat = np.delete(big_mat, to_del, 1)
@@ -284,22 +245,61 @@ def build_mat(tiles):
     return big_mat
 
 
-big_mat = build_mat(tiles)
+class Solution:
+    def __init__(self):
+        with open(Path(__file__).parent / "input", "r") as f:
+            self.input = f.readlines()
+        self.tiles = {}
+        for line in self.input:
+            if line.startswith("Tile"):
+                tile_id = int(line[5:9])
+                tile = np.zeros((10, 10))
+                row = 0
+            elif line.startswith(".") or line.startswith("#"):
+                tile[row] = np.array([char_map[x] for x in line.strip()])
+                row += 1
+            elif line == "\n":
+                self.tiles[tile_id] = tile
 
-pattern = "                  # #    ##    ##    ### #  #  #  #  #  #   "
-pattern = [0 if chr == " " else 1 for chr in pattern]
-pattern = np.array(pattern)
-pattern = np.reshape(pattern, (3, -1))
-patterns = generate_all_rots(pattern)
-min_ = np.sum(pattern)
-print(min_)
-for p in patterns:
-    if np.sum(convolve2d(big_mat, p, mode="valid") >= min_):
-        print(
-            f"Part 2: {np.sum(big_mat) - np.sum(convolve2d(big_mat, p, mode='valid')>=15) * min_}"
-        )
-        break
-# for tile_id, tile in tiles.items():
+    def solve_part_1(self):
+        edges = []
+        for tile_id in self.tiles:
+            if len(find_neighbours(tile_id, self.tiles)) == 2:
+                edges.append(tile_id)
+                print(tile_id, find_neighbours(tile_id, self.tiles))
+        print(edges)
+        answer = 1
+        for edge in edges:
+            answer *= edge
+        print(answer)
+        return answer
+
+    def solve_part_2(self):
+        big_mat = build_mat(self.tiles)
+
+        pattern = "                  # #    ##    ##    ### #  #  #  #  #  #   "
+        pattern = [0 if chr == " " else 1 for chr in pattern]
+        pattern = np.array(pattern)
+        pattern = np.reshape(pattern, (3, -1))
+        patterns = generate_all_rots(pattern)
+        min_ = np.sum(pattern)
+        for p in patterns:
+            if np.sum(convolve2d(big_mat, p, mode="valid") >= min_):
+                answer = int(
+                    np.sum(big_mat)
+                    - np.sum(convolve2d(big_mat, p, mode="valid") >= 15) * min_
+                )
+                print(answer)
+                return answer
+
+    def save_results(self):
+        with open(Path(__file__).parent / "part1", "w") as opened_file:
+            opened_file.write(str(self.solve_part_1()))
+
+        with open(Path(__file__).parent / "part2", "w") as opened_file:
+            opened_file.write(str(self.solve_part_2()))
 
 
-# print(tiles)
+if __name__ == "__main__":
+    solution = Solution()
+    solution.save_results()

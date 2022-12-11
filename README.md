@@ -8,7 +8,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2017-0%20stars-ef0f14)](./2017)
 [![](https://img.shields.io/badge/2018-0%20stars-ef0f14)](./2018)
 [![](https://img.shields.io/badge/2019-14%20stars-83551c)](./2019)
-[![](https://img.shields.io/badge/2020-30%20stars-517520)](./2020)
+[![](https://img.shields.io/badge/2020-50%20stars-239323)](./2020)
 [![](https://img.shields.io/badge/2021-0%20stars-ef0f14)](./2021)
 [![](https://img.shields.io/badge/2022-22%20stars-68671e)](./2022)
 <!-- end-year-badge -->
@@ -23,6 +23,7 @@ My solution for Advent of Code problems
 - `python src/prepare_year.py 2022`: Will create the directories for each day using the template in `year_template`
 - `python src/download.py 1 2022`: Will download the input for problem1 of year 2022 (NB: You need to run `prepare_year`first)
 - `python src/submit.py 3 1 2022`: Will submit solution for part 1 of day 3 of year 2022.
+- `python src/get_stars.py` to update the README badges.
 
 ## Workflow
 - When data become available, run the `src/download.py` script.

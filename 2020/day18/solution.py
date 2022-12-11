@@ -1,7 +1,5 @@
+from pathlib import Path
 import re
-
-with open("input", "r") as f:
-    lines = [l.strip().replace(" ", "") for l in f.readlines()]
 
 
 def evaluate(expr):
@@ -26,13 +24,6 @@ def evaluate(expr):
             res *= int(num)
 
     return str(res)
-
-
-s = 0
-for l in lines:
-    s += int(evaluate(l))
-
-print(f"Part 1: {s}")
 
 
 def evaluate_addfirst(expr):
@@ -63,8 +54,33 @@ def evaluate_addfirst(expr):
     return str(res)
 
 
-s = 0
-for l in lines:
-    s += int(evaluate_addfirst(l))
+class Solution:
+    def __init__(self):
+        with open(Path(__file__).parent / "input", "r") as f:
+            self.input = [l.strip().replace(" ", "") for l in f.readlines()]
 
-print(f"Part 2: {s}")
+    def solve_part_1(self):
+        answer = 0
+        for l in self.input:
+            answer += int(evaluate(l))
+        print(answer)
+        return answer
+
+    def solve_part_2(self):
+        answer = 0
+        for l in self.input:
+            answer += int(evaluate_addfirst(l))
+        print(answer)
+        return answer
+
+    def save_results(self):
+        with open(Path(__file__).parent / "part1", "w") as opened_file:
+            opened_file.write(str(self.solve_part_1()))
+
+        with open(Path(__file__).parent / "part2", "w") as opened_file:
+            opened_file.write(str(self.solve_part_2()))
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    solution.save_results()

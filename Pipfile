@@ -12,6 +12,7 @@ src = {editable = true, path = "."}
 pylint = "*"
 beautifulsoup4 = "*"
 tqdm = "*"
+scipy = "*"
 
 [dev-packages]
 pytest = "*"
