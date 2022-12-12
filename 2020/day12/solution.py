@@ -1,5 +1,5 @@
-from pathlib import Path
 from copy import deepcopy
+from pathlib import Path
 
 dir_dict = {0: "E", 90: "N", 180: "W", 270: "S"}
 dir_fact = {"E": 1, "N": 1, "W": -1, "S": -1}
@@ -43,8 +43,7 @@ class Solution:
                 continue
             if cap == "F":
                 pos[dir_map[dir_dict[dir]]] = (
-                    pos[dir_map[dir_dict[dir]]] +
-                    dir_fact[dir_dict[dir]] * degrees
+                    pos[dir_map[dir_dict[dir]]] + dir_fact[dir_dict[dir]] * degrees
                 )
                 continue
             pos[dir_map[cap]] = pos[dir_map[cap]] + dir_fact[cap] * degrees
@@ -66,8 +65,9 @@ class Solution:
                 pos["E"] += waypoint_pos["E"] * degrees
                 pos["N"] += waypoint_pos["N"] * degrees
             else:
-                waypoint_pos[dir_map[cap]
-                             ] = waypoint_pos[dir_map[cap]] + dir_fact[cap] * degrees
+                waypoint_pos[dir_map[cap]] = (
+                    waypoint_pos[dir_map[cap]] + dir_fact[cap] * degrees
+                )
 
         answer = abs(pos["E"]) + abs(pos["N"])
         print(answer)

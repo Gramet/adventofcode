@@ -1,7 +1,9 @@
-from bs4 import BeautifulSoup
-import requests
 from math import sqrt
-from utils import SESSION_TOKEN, REQUEST_HEADERS
+
+import requests
+from bs4 import BeautifulSoup
+
+from utils import REQUEST_HEADERS, SESSION_TOKEN
 
 MD_BADGE_URL = "https://img.shields.io/badge/{year}-{stars}%20stars-{color}"
 DELIM_BEGIN = "<!-- begin-year-badge -->"

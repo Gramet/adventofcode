@@ -28,8 +28,7 @@ class Solution:
                 add = int(line.split("[")[1].split("]")[0])
                 val = "{0:b}".format(int(line.strip().split(" = ")[1]))
                 val = "0" * (36 - len(val)) + val
-                mem[add] = "".join(
-                    [v if x == "X" else x for x, v in zip(mask, val)])
+                mem[add] = "".join([v if x == "X" else x for x, v in zip(mask, val)])
 
         answer = sum(int(v, 2) for v in mem.values())
         print(answer)
@@ -44,8 +43,9 @@ class Solution:
             elif line.startswith("mem"):
                 add = "{0:b}".format(int(line.split("[")[1].split("]")[0]))
                 add = "0" * (36 - len(add)) + add
-                add = "".join([x if (x == "X" or x == "1")
-                               else v for x, v in zip(mask, add)])
+                add = "".join(
+                    [x if (x == "X" or x == "1") else v for x, v in zip(mask, add)]
+                )
                 val = "{0:b}".format(int(line.strip().split(" = ")[1]))
                 val = "0" * (36 - len(val)) + val
                 adds = generate_adds(add)

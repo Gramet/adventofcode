@@ -2,13 +2,8 @@
 import fire
 import requests
 
-from utils import (
-    INPUT_URL,
-    REQUEST_HEADERS,
-    SESSION_TOKEN,
-    input_data_is_downloaded,
-    save_input,
-)
+from utils import (INPUT_URL, REQUEST_HEADERS, SESSION_TOKEN,
+                   input_data_is_downloaded, save_input)
 
 
 def download_input(

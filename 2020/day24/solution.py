@@ -1,6 +1,5 @@
-from pathlib import Path
 from copy import deepcopy
-
+from pathlib import Path
 
 coo_map = {"e": 0, "se": 1, "ne": 2}
 dir_map = {"e": 1, "se": 1, "ne": 1, "w": -1, "sw": -1, "nw": -1}

@@ -1,5 +1,5 @@
-from pathlib import Path
 import itertools
+from pathlib import Path
 
 
 def check(rules, id, string, start):

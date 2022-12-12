@@ -1,30 +1,24 @@
-from collections import defaultdict
 from pathlib import Path
 
 
-def count_nums(starts, end):
-    d = defaultdict(lambda: t)
-    lastnum = -1
-    for t, num in enumerate(starts):
-        d[lastnum], lastnum = t, int(num)
-    for t in range(len(starts), end):
-        d[lastnum], lastnum = t, t - d[lastnum]
-    return lastnum
+def find_start(input_, buffer_len):
+    for i in range(len(input_)):
+        if len(set(input_[i : i + buffer_len])) == buffer_len:
+            return i + buffer_len
 
 
 class Solution:
     def __init__(self):
         with open(Path(__file__).parent / "input", "r") as f:
-            self.input = f.readlines()
-        self.starts = [int(x) for x in self.input[0].split(",")]
+            self.input = f.readlines()[0]
 
     def solve_part_1(self):
-        answer = count_nums(self.starts, 2020)
+        answer = find_start(self.input, 4)
         print(answer)
         return answer
 
     def solve_part_2(self):
-        answer = count_nums(self.starts, 30000000)
+        answer = find_start(self.input, 14)
         print(answer)
         return answer
 

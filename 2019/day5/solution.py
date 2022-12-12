@@ -1,5 +1,5 @@
-from pathlib import Path
 from copy import deepcopy
+from pathlib import Path
 
 POSITION_MODE = 0
 VALUE_MODE = 1

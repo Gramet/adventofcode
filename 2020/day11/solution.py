@@ -1,6 +1,6 @@
-from pathlib import Path
-from itertools import product
 from copy import deepcopy
+from itertools import product
+from pathlib import Path
 
 dict_seat = {".": -1, "L": 0, "#": 1}
 
@@ -67,8 +67,7 @@ class Solution:
         self.mat = [[-1] * (len(self.input[0].strip("\n")) + 2)]
 
         for line in self.input:
-            self.mat.append([-1] + [dict_seat[x]
-                                    for x in line.strip("\n")] + [-1])
+            self.mat.append([-1] + [dict_seat[x] for x in line.strip("\n")] + [-1])
         self.mat.append([-1] * (len(self.input[0].strip("\n")) + 2))
 
         self.num_floor = -sum(sum(row) for row in self.mat)

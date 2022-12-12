@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 move_score = {"X": 1, "Y": 2, "Z": 3}
 match_scores = {1: 6, 0: 3, -1: 0}
 match_move_score = {"X": -1, "Y": 0, "Z": 1}
