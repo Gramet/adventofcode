@@ -130,6 +130,7 @@ dmypy.json
 
 # Input and solution files
 **/input
+**/sample
 **/part*
 **/part*
 
