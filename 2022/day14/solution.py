@@ -1,6 +1,6 @@
-from pathlib import Path
 from collections import defaultdict
 from math import copysign
+from pathlib import Path
 
 sign = lambda x: copysign(1, x)
 

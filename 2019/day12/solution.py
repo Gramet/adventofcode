@@ -1,6 +1,6 @@
-from pathlib import Path
 import re
 from math import lcm
+from pathlib import Path
 
 
 class Planet:

@@ -1,5 +1,5 @@
-from pathlib import Path
 from math import atan2, gcd, pi
+from pathlib import Path
 
 
 class Solution:

@@ -1,8 +1,8 @@
-from pathlib import Path
 import re
-from tqdm import tqdm
 from collections import defaultdict
-import numpy as np
+from pathlib import Path
+
+from tqdm import tqdm
 
 
 def manhattan(a, b):
