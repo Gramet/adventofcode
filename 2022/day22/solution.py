@@ -1,6 +1,6 @@
-from pathlib import Path
-from collections import defaultdict
 import re
+from collections import defaultdict
+from pathlib import Path
 
 dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 

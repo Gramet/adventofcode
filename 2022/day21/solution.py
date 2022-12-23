@@ -1,6 +1,6 @@
-from pathlib import Path
 from copy import deepcopy
 from math import copysign
+from pathlib import Path
 
 sign = lambda x: copysign(1, x)
 

@@ -1,5 +1,6 @@
-from pathlib import Path
 from copy import deepcopy
+from pathlib import Path
+
 from tqdm import tqdm
 
 

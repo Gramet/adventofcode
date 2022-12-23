@@ -1,7 +1,7 @@
-from pathlib import Path
 import re
 from copy import deepcopy
 from math import ceil
+from pathlib import Path
 
 ORE = 0
 CLAY = 1
