@@ -18,6 +18,9 @@ class IntCodeComputer:
         self.inputs = inputs
         self.inputs_ptr = 0
         self.relative_base = 0
+
+        self.num_missed = 0
+        self.is_idle = False
         logging.basicConfig(level=logging.ERROR)
 
         self.op_dict = {
@@ -154,8 +157,18 @@ class IntCodeComputer:
         while True:
             op, params = self.parse_opcode(self.program[self.idx])
             logging.debug("%i %s", op, params)
+            if op == 3 and self.inputs_ptr == len(self.inputs):
+                self.inputs.append(-1)
+                self.num_missed += 1
+                if self.num_missed >= 2:
+                    self.is_idle = True
+            elif op == 3:
+                self.num_missed = 0
+                self.is_idle = False
+
             self.op_dict[op](params)
-            if op in [4, 99]:
+            # if op in [4, 99]:
+            if op in [3, 4, 99]:
                 break
         return self.answer, op
 
@@ -173,39 +186,63 @@ class Solution:
             self.input = defaultdict(int, [(i, v) for i, v in enumerate(self.input)])
 
     def solve_part_1(self):
-        springscript = "NOT A J\nNOT B T\nOR T J\nNOT C T\nOR T J\nAND D J\n"
-        springscript += "WALK\n"
-        inputs = [ord(x) for x in springscript]
-        comp = IntCodeComputer(deepcopy(self.input), inputs=inputs)
+        comps = [IntCodeComputer(deepcopy(self.input), inputs=[i]) for i in range(50)]
+        waiting_packets = {i: [] for i in range(50)}
+
         while True:
-            outputs = []
-            op = 0
-            while op != 99:
-                out1, op1 = comp.run()
-                if op1 == 99:
-                    answer = outputs[-1]
-                    print("".join(chr(x) for x in outputs[:-1]), end="\r")
-                    print(answer)
-                    return answer
-                outputs.append(out1)
+            for comp_num, comp in enumerate(comps):
+                op = 0
+                while op not in [3, 99]:
+                    out, op = comp.run()
+                    if op == 4:
+                        waiting_packets[comp_num].append(out)
+                        if len(waiting_packets[comp_num]) == 3:
+                            dest = waiting_packets[comp_num][0]
+                            x_val = waiting_packets[comp_num][1]
+                            y_val = waiting_packets[comp_num][2]
+                            print(f"Sending packet {(x_val, y_val)} to computer {dest}")
+                            if dest == 255:
+                                answer = y_val
+                                print(answer)
+                                return answer
+                            comps[dest].inputs.append(x_val)
+                            comps[dest].inputs.append(y_val)
+                            waiting_packets[comp_num] = []
 
     def solve_part_2(self):
-        springscript = "NOT A J\nNOT B T\nOR T J\nNOT C T\nOR T J\nAND D J\nNOT A T\n OR T J\nNOT E T\nNOT T T\nOR H T\nAND T J\n"
-
-        springscript += "RUN\n"
-        inputs = [ord(x) for x in springscript]
-        comp = IntCodeComputer(deepcopy(self.input), inputs=inputs)
+        print("Part2")
+        waiting_packets = {i: [] for i in range(50)}
+        comps = [IntCodeComputer(deepcopy(self.input), inputs=[i]) for i in range(50)]
+        nat_packets = [(None, None)]
+        last_nat = None
         while True:
-            outputs = []
-            op = 0
-            while op != 99:
-                out1, op1 = comp.run()
-                if op1 == 99:
-                    answer = outputs[-1]
-                    print("".join(chr(x) for x in outputs[:-1]), end="\r")
+            for comp_num, comp in enumerate(comps):
+                op = 0
+                while op not in [3, 99]:
+                    out, op = comp.run()
+                    if op == 4:
+                        waiting_packets[comp_num].append(out)
+                        if len(waiting_packets[comp_num]) == 3:
+                            dest = waiting_packets[comp_num][0]
+                            x_val = waiting_packets[comp_num][1]
+                            y_val = waiting_packets[comp_num][2]
+                            print(f"Sending packet {(x_val, y_val)} to computer {dest}")
+                            if dest == 255:
+                                nat_packets.append((x_val, y_val))
+                            else:
+                                comps[dest].inputs.append(x_val)
+                                comps[dest].inputs.append(y_val)
+                            waiting_packets[comp_num] = []
+            # print(sum(comp.is_idle for comp in comps))
+            if all(comp.is_idle for comp in comps):
+                comps[0].inputs.append(nat_packets[-1][0])
+                comps[0].inputs.append(nat_packets[-1][1])
+                if nat_packets[-1][1] == last_nat:
+                    answer = last_nat
                     print(answer)
                     return answer
-                outputs.append(out1)
+                else:
+                    last_nat = nat_packets[-1][1]
 
     def save_results(self):
         with open(Path(__file__).parent / "part1", "w") as opened_file:
