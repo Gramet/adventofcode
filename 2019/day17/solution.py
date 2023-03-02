@@ -1,6 +1,7 @@
 from collections import defaultdict
 from copy import deepcopy
 from pathlib import Path
+
 import numpy as np
 
 POSITION_MODE = 0
