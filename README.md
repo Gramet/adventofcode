@@ -9,7 +9,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2018-0%20stars-ef0f14)](./2018)
 [![](https://img.shields.io/badge/2019-50%20stars-239323)](./2019)
 [![](https://img.shields.io/badge/2020-50%20stars-239323)](./2020)
-[![](https://img.shields.io/badge/2021-14%20stars-83551c)](./2021)
+[![](https://img.shields.io/badge/2021-18%20stars-755e1d)](./2021)
 [![](https://img.shields.io/badge/2022-50%20stars-239323)](./2022)
 <!-- end-year-badge -->
 
