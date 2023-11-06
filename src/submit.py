@@ -36,7 +36,7 @@ def submit_solution(day: int, part: int, year: int = 2022) -> str:
         elif "That's the right answer" in text_data:
             message = "Congratulation, you have solved question successfully"
         else:
-            message = "Got unknown message. Please retry if answered is not submitted: {text_data}"
+            message = f"Got unknown message. Please retry if answered is not submitted: {text_data}"
     print(message)
 
 

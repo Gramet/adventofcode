@@ -1,5 +1,6 @@
-from pathlib import Path
 from binascii import unhexlify
+from pathlib import Path
+
 import numpy as np
 
 hex_map = {

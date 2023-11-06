@@ -1,5 +1,5 @@
-from pathlib import Path
 import heapq
+from pathlib import Path
 
 deltas = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
