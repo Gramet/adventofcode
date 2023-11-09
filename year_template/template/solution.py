@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from aoc_utils import read_input
 
 INPUT_FILE = Path(__file__).parent / "input"

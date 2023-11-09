@@ -1,6 +1,13 @@
-from pathlib import Path
-from aoc_utils import read_input_parts, deltas9_2d, print_2d_image, get_min_coos
 from collections import defaultdict
+from pathlib import Path
+
+from aoc_utils import (
+    ascii_image_to_map,
+    deltas9_2d,
+    get_min_coos,
+    print_2d_image,
+    read_input_parts,
+)
 
 INPUT_FILE = Path(__file__).parent / "input"
 
@@ -26,13 +33,7 @@ class Solution:
         self.image = self.image.split("\n")
 
     def solve_part_1(self):
-        self.map = defaultdict(int)
-        for r, line in enumerate(self.image):
-            for c, chr in enumerate(line.strip()):
-                if chr == "#":
-                    self.map[(r, c)] = 1
-                elif chr == ".":
-                    self.map[(r, c)] = 0
+        self.map = ascii_image_to_map(self.image)
         self.min_r, self.max_r, self.min_c, self.max_c = get_min_coos(self.map)
         # print_2d_image(self.map)
 

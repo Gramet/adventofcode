@@ -1,9 +1,9 @@
 from datetime import datetime
-
-import typer
 from typing import Optional
 
+import typer
 from typing_extensions import Annotated
+
 from download import download_input
 from get_stars import update_stars
 from prepare import prepare_year
