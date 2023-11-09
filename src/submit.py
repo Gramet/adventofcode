@@ -12,7 +12,6 @@ def submit_solution(day: int, part: int, year: int) -> None:
     submit_url = SUBMIT_URL.format(year, day)
     output = get_solution(year, day, part)
     data = {"level": part, "answer": output}
-    print(data, submit_url)
     response = requests.post(
         submit_url,
         data,

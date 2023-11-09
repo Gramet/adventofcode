@@ -1,10 +1,12 @@
 from pathlib import Path
+from aoc_utils import read_input
+
+INPUT_FILE = Path(__file__).parent / "input"
 
 
 class Solution:
     def __init__(self):
-        with open(Path(__file__).parent / "input", "r") as f:
-            self.input = f.readlines()
+        self.input = read_input(INPUT_FILE)
 
     def solve_part_1(self):
         answer = "None"
