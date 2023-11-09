@@ -22,14 +22,14 @@ My solution for Advent of Code problems
 
 ## Helpers
 The package will install a typer-based cli named `aoc`. You can use it as follow:
-- `aoc prepare  --year 2022`: Will create the directories for each day using the template in `year_template`
-- `aoc download --day 1 --year 2022`: Will download the input for problem1 of year 2022 (NB: You need to run `prepare_year`first)
-- `aoc submit --day 1 --part 1 --year 2022`: Will submit solution for part 1 of day 3 of year 2022.
+- `aoc prepare 2022`: Will create the directories for each day of year 2022 using the template in `year_template`.
+- `aoc download 1 2022`: Will download the input for problem 1 of year 2022 (NB: You need to run `prepare_year` first).
+- `aoc submit 3 1 2022`: Will submit solution for part 1 of day 3 of year 2022.
 - `aoc get-stars` to update the README badges.
 
-Run `aoc --help` for more details
+By default, `day` and `year` values are the current day and year. Run `aoc --help` for more details
 
 ## Workflow
 - When data become available, run `aoc download`.
-- Implement your solution in the `solve_part_1` and `solve_part_2` functions
+- Implement your solution in the `solve_part_1` and `solve_part_2` functions.
 - Use `aoc submit` to submit any part once you are satisfied with it. You'll get any error message from AoC in the terminal.

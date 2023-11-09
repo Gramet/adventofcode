@@ -1,7 +1,9 @@
 from datetime import datetime
 
 import typer
+from typing import Optional
 
+from typing_extensions import Annotated
 from download import download_input
 from get_stars import update_stars
 from prepare import prepare_year
@@ -16,19 +18,24 @@ def get_stars():
 
 
 @app.command()
-def download(day: int = datetime.now().day, year: int = datetime.now().year):
+def download(
+    day: Annotated[int, typer.Argument()] = datetime.now().day,
+    year: Annotated[int, typer.Argument()] = datetime.now().year,
+):
     download_input(day, year)
 
 
 @app.command()
 def submit(
-    day: int = datetime.now().day, part: int = 1, year: int = datetime.now().year
+    day: Annotated[int, typer.Argument()] = datetime.now().day,
+    part: Annotated[int, typer.Argument()] = 1,
+    year: Annotated[int, typer.Argument()] = datetime.now().year,
 ):
     submit_solution(day, part, year)
 
 
 @app.command()
-def prepare(year: int = datetime.now().year):
+def prepare(year: Annotated[int, typer.Argument()] = datetime.now().year):
     prepare_year(year)
 
 
