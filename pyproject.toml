@@ -1,2 +1,15 @@
+[project]
+name = "aoc"
+version = "0.0.1"
+description = "CLI helper for Advent of code."
+dependencies = ["black", "isort", "requests", "fire", "typer"]
+
+[build-system]
+requires = ["setuptools>=45"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+aoc = "cli:main"
+
 [tool.isort]
 profile="black"

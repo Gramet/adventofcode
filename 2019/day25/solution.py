@@ -179,7 +179,6 @@ class Solution:
             self.input = defaultdict(int, [(i, v) for i, v in enumerate(self.input)])
 
     def solve_part_1(self):
-
         comp = IntCodeComputer(deepcopy(self.input))
         while True:
             outputs = []

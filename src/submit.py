@@ -7,11 +7,12 @@ import requests
 from utils import REQUEST_HEADERS, SESSION_TOKEN, SUBMIT_URL, get_solution
 
 
-def submit_solution(day: int, part: int, year: int = 2022) -> str:
+def submit_solution(day: int, part: int, year: int) -> None:
     """Submit solution output to a advent of code server"""
     submit_url = SUBMIT_URL.format(year, day)
     output = get_solution(year, day, part)
     data = {"level": part, "answer": output}
+    print(data, submit_url)
     response = requests.post(
         submit_url,
         data,

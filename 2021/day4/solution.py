@@ -40,7 +40,6 @@ class Solution:
                     except ValueError:
                         pass
                     if len(winnings) == 0:
-
                         answer = num * np.sum(board)
                         print(answer)
                         return answer

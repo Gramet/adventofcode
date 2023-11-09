@@ -87,7 +87,6 @@ class Solution:
         return answer
 
     def solve_part_2(self):
-
         elves = deepcopy(self.elves)
         map_ = deepcopy(self.map)
         delta_idx = 0

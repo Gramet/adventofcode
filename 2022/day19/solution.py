@@ -148,7 +148,6 @@ class Solution:
         print(self.blueprints)
 
     def solve_part_1(self):
-
         tot_quality = 0
         for id, blueprint in self.blueprints.items():
             answer = eval_blueprint(

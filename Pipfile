@@ -13,6 +13,7 @@ pylint = "*"
 beautifulsoup4 = "*"
 tqdm = "*"
 scipy = "*"
+typer = "*"
 
 [dev-packages]
 pytest = "*"

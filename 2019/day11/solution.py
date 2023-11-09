@@ -197,7 +197,6 @@ class Solution:
         return answer
 
     def solve_part_2(self):
-
         robot_pos = (0, 0)
         dir_idx = 0
         dir = dirs[0]

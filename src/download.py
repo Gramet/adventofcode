@@ -13,7 +13,7 @@ from utils import (
 
 def download_input(
     day: int,
-    year: int = 2022,
+    year: int,
 ):
     """Download file from a advent of code server and save it for future reference"""
     if not input_data_is_downloaded(year, day):

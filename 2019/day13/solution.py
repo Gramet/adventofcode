@@ -163,7 +163,6 @@ class IntCodeComputer:
 
     def display_screen(self):
         if len(self.screen) != 0:
-
             max_x = max(x[0] for x in self.screen.keys())
             max_y = max(x[1] for x in self.screen.keys())
             paddle = 0

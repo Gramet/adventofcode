@@ -32,7 +32,6 @@ def recursive_combat(p1, p2):
     played_games = set()
 
     while len(p1) > 0 and len(p2) > 0:
-
         if hash((tuple(p1), tuple(p2))) in played_games:
             return p1, []
 

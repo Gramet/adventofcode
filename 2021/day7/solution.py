@@ -17,7 +17,6 @@ class Solution:
     def solve_part_2(self):
         answer = 999999999999
         for target_pos in range(min(self.crab_pos), max(self.crab_pos)):
-
             fuel = sum(
                 [
                     int(abs(pos - target_pos) * (1 + abs(pos - target_pos)) / 2)

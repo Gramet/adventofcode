@@ -178,7 +178,6 @@ class Solution:
         for x in range(50):
             row = []
             for y in range(50):
-
                 comp = IntCodeComputer(deepcopy(self.input), inputs=[x, y])
                 op = 0
                 while op != 99:

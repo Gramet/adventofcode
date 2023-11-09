@@ -61,7 +61,6 @@ class CircularLinkedList:
         raise Exception("Node with data '%s' not found" % target_node_data)
 
     def move_right(self, target_node_data, steps):
-
         if self.head is None:
             raise Exception("List is empty")
 

@@ -82,7 +82,11 @@ def update_readme(text):
     print("README updated!")
 
 
-if __name__ == "__main__":
+def update_stars():
     years, stars = get_stars()
     out_text = get_text(years, stars)
     update_readme(out_text)
+
+
+if __name__ == "__main__":
+    update_stars()

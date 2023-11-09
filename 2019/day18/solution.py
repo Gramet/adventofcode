@@ -184,7 +184,6 @@ class Solution:
         self.paths = {}
         self.visited = set([])
         for idx, start in enumerate(self.start):
-
             self.paths[f"@{idx}"] = self.compute_paths(
                 current_positions=[(start, 0, set([]))],
                 paths_found=dict(),

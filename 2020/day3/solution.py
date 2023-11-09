@@ -12,7 +12,6 @@ def advance(line, pos=0, right=3):
 
 
 def go_down(lines, down=1, right=3):
-
     count = 0
     pos = 0
     for num_line, line in enumerate(lines):

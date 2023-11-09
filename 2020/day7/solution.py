@@ -2,7 +2,6 @@ from pathlib import Path
 
 
 def get_contained(bag_str, rules):
-
     list_contain = set([])
     for bag in rules:
         if bag_str in rules[bag]:
@@ -17,7 +16,6 @@ def get_contained(bag_str, rules):
 
 
 def get_content(bag_str, rules):
-
     content = 0
     if bag_str not in rules:
         return content

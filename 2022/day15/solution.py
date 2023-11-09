@@ -27,7 +27,6 @@ class Solution:
             self.dists[sensor] = dist
 
     def blacklist(self, coos):
-
         if not self.map[coos]:
             self.map[coos] = -1
 
