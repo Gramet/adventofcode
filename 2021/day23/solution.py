@@ -5,41 +5,70 @@ from pathlib import Path
 from aoc_utils import read_input
 
 INPUT_FILE = Path(__file__).parent / "sample"
-from aoc_utils import manhattan_distance
+from aoc_utils import manhattan_distance, shortest_path
+
+target_cols = {"A": 3, "B": 5, "C": 7, "D": 9}
 
 
-def shortest_path(current_positions, seen_pos, graph, target_pos, current_best):
-    while current_positions:
-        pos_to_eval = current_positions.pop(0)
-        current_map, current_cost = pos_to_eval[0], pos_to_eval[1]
-        if current_cost >= current_best:
-            continue
-        if current_map == target_pos:
-            print(f"Found a solution with cost {current_cost}")
-            current_best = min(current_cost, current_best)
-            continue
+def early_exit(pos_to_eval, visited, current_best, **kwargs):
+    current_map, current_cost = pos_to_eval[0], pos_to_eval[1]
+    if current_cost >= current_best:
+        return True
+    if (
+        tuple(current_map.items()) in visited
+        and current_cost >= visited[tuple(current_map.items())]
+    ):
+        return True
+    if current_best <= current_cost + get_min_expected_cost(current_map):
+        return True
+    return False
+
+
+def get_min_expected_cost(current_map):
+    cost = 0
+    for pos, val in current_map.items():
+        if val in target_cols and pos[1] != target_cols[val]:
+            cost += get_move_cost(pos, (2, target_cols[val]), val)
+    return cost
+
+
+def reach_target(pos_to_eval, target_pos, **kwargs):
+    current_map = pos_to_eval[0]
+    if current_map == target_pos:
+        return True
+    return False
+
+
+def get_next_states(pos_to_eval, graph, visited, **kwargs) -> list:
+    current_map, current_cost = pos_to_eval[0], pos_to_eval[1]
+    next_possible_moves = get_next_possible_moves(current_map, graph)
+    results = []
+    for next_move in next_possible_moves:
+        next_map = deepcopy(current_map)
+        start, end = next_move
+        next_map[start] = current_map[end]
+        next_map[end] = current_map[start]
+        move_cost = get_move_cost(start, end, current_map[start])
+
         if (
-            tuple(current_map.items()) in seen_pos
-            and current_cost >= seen_pos[tuple(current_map.items())]
+            tuple(next_map.items()) in visited
+            and current_cost + move_cost >= visited[tuple(next_map.items())]
         ):
             continue
-        seen_pos[tuple(current_map.items())] = current_cost
 
-        next_possible_moves = get_next_possible_moves(current_map, graph)
-        for next_move in next_possible_moves:
-            next_map = deepcopy(current_map)
-            start, end = next_move
-            next_map[start] = current_map[end]
-            next_map[end] = current_map[start]
-            move_cost = get_move_cost(start, end, current_map[start])
-            if (
-                tuple(next_map.items()) in seen_pos
-                and current_cost + move_cost >= seen_pos[tuple(next_map.items())]
-            ):
-                continue
-            current_positions.append((next_map, current_cost + move_cost))
+        results.append((next_map, current_cost + move_cost))
+    return results
 
-    return current_best
+
+def update_visited(visited, pos_to_eval, **kwargs):
+    current_map, current_cost = pos_to_eval[0], pos_to_eval[1]
+    visited[tuple(current_map.items())] = current_cost
+
+
+def update_current_best(current_best, pos_to_eval, **kwargs):
+    current_cost = pos_to_eval[1]
+    print(f"Found a solution with cost {current_cost}")
+    return min(current_cost, current_best)
 
 
 def get_next_possible_moves(current_map, graph):
@@ -140,7 +169,6 @@ class Solution:
             for c, char in enumerate(line.strip("\n")):
                 if char in "ABCD." and not (r == 1 and c in [3, 5, 7, 9]):
                     self.map_dict[(r, c)] = char
-        target_cols = {"A": 3, "B": 5, "C": 7, "D": 9}
 
         self.graph_move = {
             col: {
@@ -188,8 +216,18 @@ class Solution:
         current_pos = [(start_pos, start_cost)]
 
         answer = shortest_path(
-            current_pos, {}, self.graph_move, target_map_dict, current_best
+            starting_positions=current_pos,
+            visited={},
+            early_exit=early_exit,
+            get_next_states=get_next_states,
+            reach_target=reach_target,
+            update_visited=update_visited,
+            update_current_best=update_current_best,
+            current_best=current_best,
+            target_pos=target_map_dict,
+            graph=self.graph_move,
         )
+
         print(f"Part 1: {answer}")
         return answer
 
@@ -200,7 +238,6 @@ class Solution:
             for c, char in enumerate(line.strip("\n")):
                 if char in "ABCD." and not (r == 1 and c in [3, 5, 7, 9]):
                     self.map_dict[(r, c)] = char
-        target_cols = {"A": 3, "B": 5, "C": 7, "D": 9}
 
         self.graph_move = {
             col: {
@@ -254,7 +291,16 @@ class Solution:
         current_pos = [(start_pos, start_cost)]
 
         answer = shortest_path(
-            current_pos, {}, self.graph_move, target_map_dict, current_best
+            starting_positions=current_pos,
+            visited={},
+            early_exit=early_exit,
+            get_next_states=get_next_states,
+            reach_target=reach_target,
+            update_visited=update_visited,
+            update_current_best=update_current_best,
+            current_best=current_best,
+            target_pos=target_map_dict,
+            graph=self.graph_move,
         )
 
         print(f"Part 2: {answer}")

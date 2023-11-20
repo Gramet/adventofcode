@@ -1,5 +1,6 @@
 from collections import defaultdict
 from pathlib import Path
+from typing import Callable
 
 ## Input parsing
 
@@ -21,6 +22,11 @@ deltas4_2d = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 deltas5_2d = deltas4_2d + [(0, 0)]
 deltas8_2d = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
 deltas9_2d = deltas8_2d + [(0, 0)]
+
+
+def manhattan_distance(a, b):
+    return sum(abs(aa - bb) for aa, bb in zip(a, b))
+
 
 AOC_INT_MAP = {1: "#", 0: "."}
 AOC_CHR_MAP = {"#": 1, ".": 0}
@@ -53,3 +59,31 @@ def print_2d_image(d: dict, int_map: dict[int, str] = AOC_INT_MAP):
         img_str += "\n"
     img_str += "\n"
     print(img_str)
+
+
+## Shortest path
+
+
+def shortest_path(
+    starting_positions: list[tuple],
+    visited: dict,
+    early_exit: Callable[..., bool],
+    get_next_states: Callable[..., list[tuple]],
+    reach_target: Callable[..., bool],
+    update_visited: Callable[..., None],
+    update_current_best: Callable[..., float],
+    current_best: float = 1e100,
+    **kwargs,
+):
+    while starting_positions:
+        pos_to_eval = starting_positions.pop(0)
+        if reach_target(pos_to_eval, **kwargs):
+            current_best = update_current_best(current_best, pos_to_eval, **kwargs)
+            continue
+        if early_exit(
+            pos_to_eval, visited=visited, current_best=current_best, **kwargs
+        ):
+            continue
+        update_visited(visited, pos_to_eval)
+        starting_positions += get_next_states(pos_to_eval, visited=visited, **kwargs)
+    return current_best
