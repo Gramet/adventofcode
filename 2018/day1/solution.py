@@ -1,3 +1,4 @@
+import itertools
 from pathlib import Path
 
 from aoc_utils import *
@@ -7,15 +8,22 @@ INPUT_FILE = Path(__file__).parent / "input"
 
 class Solution:
     def __init__(self):
-        self.input = read_input(INPUT_FILE)
+        self.input = read_ints(INPUT_FILE)
 
     def solve_part_1(self):
-        answer = "None"
+        answer = sum(self.input)
         print(answer)
         return answer
 
     def solve_part_2(self):
-        answer = "None"
+        seen = set([0])
+        answer = 0
+        for next_val in itertools.cycle(self.input):
+            answer += next_val
+            if answer in seen:
+                break
+            seen.add(answer)
+
         print(answer)
         return answer
 

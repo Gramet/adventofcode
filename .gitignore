@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Input and solution files
-**/input
+**/input*
 **/sample
 **/part*
 **/part*

@@ -1,6 +1,7 @@
 from collections import defaultdict
 from pathlib import Path
 from typing import Callable
+import re
 
 ## Input parsing
 
@@ -14,6 +15,17 @@ def read_input_parts(path: Path):
     with open(path, "r") as f:
         data = f.read()
         return data.split("\n\n")
+
+
+def read_ints(path: Path):
+    return list(map(int, read_input(path)))
+
+
+## Regexs
+
+
+def parse_ints(string):
+    return list(map(int, re.findall(r"\d+", string)))
 
 
 ## 2d Map and images
