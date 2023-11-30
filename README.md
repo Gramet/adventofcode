@@ -24,6 +24,7 @@ My solution for Advent of Code problems
 The package will install a typer-based cli named `aoc`. You can use it as follow:
 - `aoc prepare 2022`: Will create the directories for each day of year 2022 using the template in `year_template`.
 - `aoc download 1 2022`: Will download the input for problem 1 of year 2022 (NB: You need to run `prepare_year` first).
+- `aoc run 1 2022`: Will run the `solution.py` file for problem 1 of year 2022. 
 - `aoc submit 3 1 2022`: Will submit solution for part 1 of day 3 of year 2022.
 - `aoc get-stars` to update the README badges.
 

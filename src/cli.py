@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 import typer
 from typing_extensions import Annotated
@@ -7,6 +6,7 @@ from typing_extensions import Annotated
 from download import download_input
 from get_stars import update_stars
 from prepare import prepare_year
+from run_solution import run_solution
 from submit import submit_solution
 
 app = typer.Typer()
@@ -37,6 +37,14 @@ def submit(
 @app.command()
 def prepare(year: Annotated[int, typer.Argument()] = datetime.now().year):
     prepare_year(year)
+
+
+@app.command()
+def run(
+    day: Annotated[int, typer.Argument()] = datetime.now().day,
+    year: Annotated[int, typer.Argument()] = datetime.now().year,
+):
+    run_solution(day, year)
 
 
 def main():
