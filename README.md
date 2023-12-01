@@ -11,7 +11,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2020-50%20stars-239323)](./2020)
 [![](https://img.shields.io/badge/2021-50%20stars-239323)](./2021)
 [![](https://img.shields.io/badge/2022-50%20stars-239323)](./2022)
-[![](https://img.shields.io/badge/2023-0%20stars-ef0f14)](./2023)
+[![](https://img.shields.io/badge/2023-2%20stars-c62917)](./2023)
 <!-- end-year-badge -->
 
 # Install
@@ -24,7 +24,7 @@ My solution for Advent of Code problems
 The package will install a typer-based cli named `aoc`. You can use it as follow:
 - `aoc prepare 2022`: Will create the directories for each day of year 2022 using the template in `year_template`.
 - `aoc download 1 2022`: Will download the input for problem 1 of year 2022 (NB: You need to run `prepare_year` first).
-- `aoc run 1 2022`: Will run the `solution.py` file for problem 1 of year 2022. 
+- `aoc run 1 2022`: Will run the `solution.py` file for problem 1 of year 2022.
 - `aoc submit 3 1 2022`: Will submit solution for part 1 of day 3 of year 2022.
 - `aoc get-stars` to update the README badges.
 
