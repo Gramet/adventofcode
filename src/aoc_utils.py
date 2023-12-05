@@ -99,3 +99,12 @@ def shortest_path(
         update_visited(visited, pos_to_eval)
         starting_positions += get_next_states(pos_to_eval, visited=visited, **kwargs)
     return current_best
+
+
+# Others
+
+
+def range_intersect(r1_start, r1_end, r2_start, r2_end):
+    """Compute range interesect between r1 and r2"""
+    intersect = (max(r1_start, r2_start), min(r1_end, r2_end))
+    return intersect
