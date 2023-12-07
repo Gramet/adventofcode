@@ -36,7 +36,7 @@ def parse_hand(hand):
 
     hand_val = get_hand_val(hand_count)
 
-    return (hand_val, tuple(order.index(card) for card in hand), hand, bid)
+    return (hand_val, tuple(order.index(card) for card in hand), bid)
 
 
 def parse_hand_with_jokers(hand):
@@ -52,7 +52,7 @@ def parse_hand_with_jokers(hand):
         del hand_count["J"]
     hand_val = get_hand_val(hand_count)
 
-    return (hand_val, tuple(order_joker.index(card) for card in hand), hand, bid)
+    return (hand_val, tuple(order_joker.index(card) for card in hand), bid)
 
 
 class Solution:
