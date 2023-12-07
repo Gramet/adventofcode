@@ -9,12 +9,8 @@ order = "23456789TJQKA"
 order_joker = "J23456789TQKA"
 
 
-def parse_hand(hand):
-    hand, bid = hand.split(" ")
-    bid = int(bid)
-
-    count = Counter(hand)
-    count_vals = sorted(count.values())
+def get_hand_val(hand_count):
+    count_vals = sorted(hand_count.values())
     match count_vals:
         case [5]:
             hand_val = 6
@@ -30,6 +26,16 @@ def parse_hand(hand):
             hand_val = 1
         case [1, 1, 1, 1, 1]:
             hand_val = 0
+    return hand_val
+
+
+def parse_hand(hand):
+    hand, bid = hand.split(" ")
+    bid = int(bid)
+    hand_count = Counter(hand)
+
+    hand_val = get_hand_val(hand_count)
+
     return (hand_val, tuple(order.index(card) for card in hand), hand, bid)
 
 
@@ -37,30 +43,14 @@ def parse_hand_with_jokers(hand):
     hand, bid = hand.split(" ")
     bid = int(bid)
 
-    count = Counter(hand)
+    hand_count = Counter(hand)
     count_no_j = Counter(hand.replace("J", ""))
     if len(count_no_j):
-        max_card = max(count_no_j, key=count.get)
+        max_card = max(count_no_j, key=hand_count.get)
 
-        count[max_card] += count.get("J", 0)
-        del count["J"]
-
-    count_vals = sorted(count.values())
-    match count_vals:
-        case [5]:
-            hand_val = 6
-        case [1, 4]:
-            hand_val = 5
-        case [2, 3]:
-            hand_val = 4
-        case [1, 1, 3]:
-            hand_val = 3
-        case [1, 2, 2]:
-            hand_val = 2
-        case [1, 1, 1, 2]:
-            hand_val = 1
-        case [1, 1, 1, 1, 1]:
-            hand_val = 0
+        hand_count[max_card] += hand_count.get("J", 0)
+        del hand_count["J"]
+    hand_val = get_hand_val(hand_count)
 
     return (hand_val, tuple(order_joker.index(card) for card in hand), hand, bid)
 
