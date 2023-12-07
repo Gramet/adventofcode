@@ -13,46 +13,38 @@ def get_hand_val(hand_count):
     count_vals = sorted(hand_count.values())
     match count_vals:
         case [5]:
-            hand_val = 6
+            return 6
         case [1, 4]:
-            hand_val = 5
+            return 5
         case [2, 3]:
-            hand_val = 4
+            return 4
         case [1, 1, 3]:
-            hand_val = 3
+            return 3
         case [1, 2, 2]:
-            hand_val = 2
+            return 2
         case [1, 1, 1, 2]:
-            hand_val = 1
+            return 1
         case [1, 1, 1, 1, 1]:
-            hand_val = 0
-    return hand_val
+            return 0
 
 
 def parse_hand(hand):
     hand, bid = hand.split(" ")
-    bid = int(bid)
     hand_count = Counter(hand)
-
     hand_val = get_hand_val(hand_count)
-
-    return (hand_val, tuple(order.index(card) for card in hand), bid)
+    return (hand_val, tuple(order.index(card) for card in hand), int(bid))
 
 
 def parse_hand_with_jokers(hand):
     hand, bid = hand.split(" ")
-    bid = int(bid)
-
     hand_count = Counter(hand)
     count_no_j = Counter(hand.replace("J", ""))
     if len(count_no_j):
         max_card = max(count_no_j, key=hand_count.get)
-
         hand_count[max_card] += hand_count.get("J", 0)
         del hand_count["J"]
     hand_val = get_hand_val(hand_count)
-
-    return (hand_val, tuple(order_joker.index(card) for card in hand), bid)
+    return (hand_val, tuple(order_joker.index(card) for card in hand), int(bid))
 
 
 class Solution:
@@ -62,18 +54,17 @@ class Solution:
         self.hands_with_jokers = [parse_hand_with_jokers(x) for x in self.input]
 
     def solve_part_1(self):
-        hands = sorted(self.hands)
-        answer = 0
-        for idx, hand in enumerate(hands):
-            answer += (idx + 1) * hand[-1]
+        answer = sum(
+            (idx + 1) * hand[-1] for idx, hand in enumerate(sorted(self.hands))
+        )
         print(answer)
         return answer
 
     def solve_part_2(self):
-        hands = sorted(self.hands_with_jokers)
-        answer = 0
-        for idx, hand in enumerate(hands):
-            answer += (idx + 1) * hand[-1]
+        answer = sum(
+            (idx + 1) * hand[-1]
+            for idx, hand in enumerate(sorted(self.hands_with_jokers))
+        )
         print(answer)
         return answer
 
