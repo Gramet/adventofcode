@@ -1,7 +1,7 @@
+import time
 from pathlib import Path
 
 from aoc_utils import *
-import time
 
 INPUT_FILE = Path(__file__).parent / "input"
 
@@ -38,7 +38,7 @@ class Solution:
             (self.seeds[k], self.seeds[k + 1]) for k in range(0, len(self.seeds), 2)
         ]
         seeds_to_map = self.seeds
-        for i, map_ in enumerate(self.maps):
+        for map_ in self.maps:
             mapped_seeds = []
             while seeds_to_map:
                 seed = seeds_to_map.pop(0)
