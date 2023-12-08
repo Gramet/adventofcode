@@ -28,6 +28,10 @@ def parse_ints(string):
     return list(map(int, re.findall(r"\d+", string)))
 
 
+def parse_words(string):
+    return re.findall(r"[a-zA-Z]+", string)
+
+
 ## 2d Map and images
 
 deltas4_2d = [(0, 1), (1, 0), (0, -1), (-1, 0)]
