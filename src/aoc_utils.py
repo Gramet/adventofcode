@@ -6,29 +6,29 @@ from typing import Callable
 ## Input parsing
 
 
-def read_input(path: Path):
+def read_input(path: Path) -> list[str]:
     with open(path, "r") as f:
         return f.readlines()
 
 
-def read_input_parts(path: Path):
+def read_input_parts(path: Path) -> list[str]:
     with open(path, "r") as f:
         data = f.read()
         return data.split("\n\n")
 
 
-def read_ints(path: Path):
+def read_ints(path: Path) -> list[int]:
     return list(map(int, read_input(path)))
 
 
 ## Regexs
 
 
-def parse_ints(string):
+def parse_ints(string) -> list[int]:
     return list(map(int, re.findall(r"\d+", string)))
 
 
-def parse_words(string):
+def parse_words(string) -> list[str]:
     return re.findall(r"[a-zA-Z]+", string)
 
 
@@ -40,7 +40,7 @@ deltas8_2d = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 
 deltas9_2d = deltas8_2d + [(0, 0)]
 
 
-def manhattan_distance(a, b):
+def manhattan_distance(a, b) -> int:
     return sum(abs(aa - bb) for aa, bb in zip(a, b))
 
 
@@ -90,7 +90,7 @@ def shortest_path(
     update_current_best: Callable[..., float],
     current_best: float = 1e100,
     **kwargs,
-):
+) -> float:
     while starting_positions:
         pos_to_eval = starting_positions.pop(0)
         if reach_target(pos_to_eval, **kwargs):
