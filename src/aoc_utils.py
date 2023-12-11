@@ -28,6 +28,10 @@ def parse_ints(string) -> list[int]:
     return list(map(int, re.findall(r"\d+", string)))
 
 
+def parse_relints(string) -> list[int]:
+    return list(map(int, re.findall(r"-?\d+", string)))
+
+
 def parse_words(string) -> list[str]:
     return re.findall(r"[a-zA-Z]+", string)
 
