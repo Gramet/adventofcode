@@ -3,6 +3,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Callable
 
+import numpy as np
+
 ## Input parsing
 
 
@@ -79,6 +81,18 @@ def print_2d_image(d: dict, int_map: dict[int, str] = AOC_INT_MAP):
         img_str += "\n"
     img_str += "\n"
     print(img_str)
+
+
+def ascii_image_to_numpy(
+    image: list[str], chr_map: dict[str, int] = AOC_CHR_MAP
+) -> np.ndarray:
+    res = []
+    for line in image:
+        line = line.strip()
+        line_vals = [chr_map[chr] for chr in line]
+        res.append(line_vals)
+
+    return np.array(res)
 
 
 ## Shortest path
