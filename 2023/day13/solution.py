@@ -40,13 +40,10 @@ def fix_image(img) -> np.ndarray:
         down = img[r:]
         comp = np.flipud(up)
         if up.shape[0] <= down.shape[0]:
-            diff = np.sum(comp != down[:r])
-            if diff == 1:
+            if np.sum(comp != down[:r]) == 1:
                 return 100 * r
-
         else:
-            diff = np.sum(comp[: down.shape[0]] != down)
-            if diff == 1:
+            if np.sum(comp[: down.shape[0]] != down) == 1:
                 return 100 * r
 
     for c in range(1, img.shape[1]):
@@ -54,13 +51,10 @@ def fix_image(img) -> np.ndarray:
         right = img[:, c:]
         comp = np.fliplr(left)
         if left.shape[1] <= right.shape[1]:
-            diff = np.sum(comp != right[:, :c])
-            if diff == 1:
+            if np.sum(comp != right[:, :c]) == 1:
                 return c
-
         else:
-            diff = np.sum(comp[:, : right.shape[1]] != right)
-            if diff == 1:
+            if np.sum(comp[:, : right.shape[1]] != right) == 1:
                 return c
 
     raise ValueError()
