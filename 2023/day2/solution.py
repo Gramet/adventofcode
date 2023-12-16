@@ -1,5 +1,5 @@
-from pathlib import Path
 import math
+from pathlib import Path
 
 from aoc_utils import *
 

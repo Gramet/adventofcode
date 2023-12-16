@@ -3,29 +3,39 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Callable
 
+import numpy as np
+
 ## Input parsing
 
 
-def read_input(path: Path):
+def read_input(path: Path) -> list[str]:
     with open(path, "r") as f:
         return f.readlines()
 
 
-def read_input_parts(path: Path):
+def read_input_parts(path: Path) -> list[str]:
     with open(path, "r") as f:
         data = f.read()
         return data.split("\n\n")
 
 
-def read_ints(path: Path):
+def read_ints(path: Path) -> list[int]:
     return list(map(int, read_input(path)))
 
 
 ## Regexs
 
 
-def parse_ints(string):
+def parse_ints(string) -> list[int]:
     return list(map(int, re.findall(r"\d+", string)))
+
+
+def parse_relints(string) -> list[int]:
+    return list(map(int, re.findall(r"-?\d+", string)))
+
+
+def parse_words(string) -> list[str]:
+    return re.findall(r"[a-zA-Z]+", string)
 
 
 ## 2d Map and images
@@ -36,7 +46,7 @@ deltas8_2d = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 
 deltas9_2d = deltas8_2d + [(0, 0)]
 
 
-def manhattan_distance(a, b):
+def manhattan_distance(a, b) -> int:
     return sum(abs(aa - bb) for aa, bb in zip(a, b))
 
 
@@ -73,6 +83,18 @@ def print_2d_image(d: dict, int_map: dict[int, str] = AOC_INT_MAP):
     print(img_str)
 
 
+def ascii_image_to_numpy(
+    image: list[str], chr_map: dict[str, int] = AOC_CHR_MAP
+) -> np.ndarray:
+    res = []
+    for line in image:
+        line = line.strip()
+        line_vals = [chr_map[chr] for chr in line]
+        res.append(line_vals)
+
+    return np.array(res)
+
+
 ## Shortest path
 
 
@@ -86,7 +108,7 @@ def shortest_path(
     update_current_best: Callable[..., float],
     current_best: float = 1e100,
     **kwargs,
-):
+) -> float:
     while starting_positions:
         pos_to_eval = starting_positions.pop(0)
         if reach_target(pos_to_eval, **kwargs):
@@ -99,3 +121,12 @@ def shortest_path(
         update_visited(visited, pos_to_eval)
         starting_positions += get_next_states(pos_to_eval, visited=visited, **kwargs)
     return current_best
+
+
+# Others
+
+
+def range_intersect(r1_start, r1_end, r2_start, r2_end):
+    """Compute range interesect between r1 and r2"""
+    intersect = (max(r1_start, r2_start), min(r1_end, r2_end))
+    return intersect
