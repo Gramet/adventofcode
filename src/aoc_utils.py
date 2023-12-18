@@ -95,6 +95,32 @@ def ascii_image_to_numpy(
     return np.array(res)
 
 
+def curve_area(curve: list[tuple[int, int]], num_points: int = None) -> int:
+    """Get area of curve
+
+    Args:
+        curve (list[tuple[int, int]]): Curve with points in order
+        num_points (int, optional): Number of points in curve. Need to specify if curve only containts the corners.
+        Defaults to len(curve).
+
+    Returns:
+        int: number of points inside the curve (border + interior).
+    """
+    if num_points is None:
+        num_points = len(curve)
+    # area with Shoelace theorem
+    curve_area = 0
+    for i, pos in enumerate(curve):
+        curve_area += (
+            pos[0] * curve[(i + 1) % len(curve)][1]
+            - pos[1] * curve[(i + 1) % len(curve)][0]
+        )
+    curve_area = abs(curve_area / 2)
+    # Picks theorem
+    interior_points = int(curve_area - num_points / 2 + 1)
+    return interior_points + num_points
+
+
 ## Shortest path
 
 
