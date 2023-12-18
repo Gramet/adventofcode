@@ -1,3 +1,4 @@
+import heapq
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -146,6 +147,32 @@ def shortest_path(
             continue
         update_visited(visited, pos_to_eval)
         starting_positions += get_next_states(pos_to_eval, visited=visited, **kwargs)
+    return current_best
+
+
+def shortest_path_heap(
+    starting_positions: list[tuple],
+    visited: dict,
+    early_exit: Callable[..., bool],
+    get_next_states: Callable[..., list[tuple]],
+    reach_target: Callable[..., bool],
+    update_visited: Callable[..., None],
+    update_current_best: Callable[..., float],
+    current_best: float = 1e100,
+    **kwargs,
+) -> float:
+    while starting_positions:
+        pos_to_eval = heapq.heappop(starting_positions)
+        if reach_target(pos_to_eval, **kwargs):
+            current_best = update_current_best(current_best, pos_to_eval, **kwargs)
+            continue
+        if early_exit(
+            pos_to_eval, visited=visited, current_best=current_best, **kwargs
+        ):
+            continue
+        update_visited(visited, pos_to_eval)
+        for state in get_next_states(pos_to_eval, visited=visited, **kwargs):
+            heapq.heappush(starting_positions, state)
     return current_best
 
 
