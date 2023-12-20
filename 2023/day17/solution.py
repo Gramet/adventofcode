@@ -1,5 +1,6 @@
-from pathlib import Path
 import heapq
+from pathlib import Path
+
 from aoc_utils import *
 
 INPUT_FILE = Path(__file__).parent / "input"
