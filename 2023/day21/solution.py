@@ -36,7 +36,7 @@ class Solution:
         num_steps = 26501365
         cur_pos = {self.start_pos}
         res = []
-        for step in range(1, self.start_pos[0] + 2 * (self.map_dim[0] + 1) + 1):
+        for step in range(1, self.start_pos[0] + 4 * (self.map_dim[0] + 1) + 1):
             new_pos = set()
             for pos in cur_pos:
                 for delta in deltas4_2d:
@@ -47,7 +47,7 @@ class Solution:
                     )
                     if not self.map[mod_pos]:
                         new_pos.add(next_pos)
-            if step % (1 + self.map_dim[0]) == self.start_pos[0]:
+            if step % (2 * (1 + self.map_dim[0])) == self.start_pos[0]:
                 res.append((step, len(new_pos)))
             cur_pos = new_pos
         # Compute quadratic formula
@@ -98,8 +98,7 @@ class Solution:
             / const
         )
         quad = lambda x: a * x**2 + b * x + c
-        # +1 because of floating errors from numpy I guess, results for 65, 136 and 327 are all just lower than what they should
-        answer = round(quad(num_steps)) + 1
+        answer = round(quad(num_steps))
         print(answer)
         return answer
 
