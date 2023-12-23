@@ -1,3 +1,4 @@
+import heapq
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -95,6 +96,32 @@ def ascii_image_to_numpy(
     return np.array(res)
 
 
+def curve_area(curve: list[tuple[int, int]], num_points: int = None) -> int:
+    """Get area of curve
+
+    Args:
+        curve (list[tuple[int, int]]): Curve with points in order
+        num_points (int, optional): Number of points in curve. Need to specify if curve only containts the corners.
+        Defaults to len(curve).
+
+    Returns:
+        int: number of points inside the curve (border + interior).
+    """
+    if num_points is None:
+        num_points = len(curve)
+    # area with Shoelace theorem
+    curve_area = 0
+    for i, pos in enumerate(curve):
+        curve_area += (
+            pos[0] * curve[(i + 1) % len(curve)][1]
+            - pos[1] * curve[(i + 1) % len(curve)][0]
+        )
+    curve_area = abs(curve_area / 2)
+    # Picks theorem
+    interior_points = int(curve_area - num_points / 2 + 1)
+    return interior_points + num_points
+
+
 ## Shortest path
 
 
@@ -120,6 +147,32 @@ def shortest_path(
             continue
         update_visited(visited, pos_to_eval)
         starting_positions += get_next_states(pos_to_eval, visited=visited, **kwargs)
+    return current_best
+
+
+def shortest_path_heap(
+    starting_positions: list[tuple],
+    visited: dict,
+    early_exit: Callable[..., bool],
+    get_next_states: Callable[..., list[tuple]],
+    reach_target: Callable[..., bool],
+    update_visited: Callable[..., None],
+    update_current_best: Callable[..., float],
+    current_best: float = 1e100,
+    **kwargs,
+) -> float:
+    while starting_positions:
+        pos_to_eval = heapq.heappop(starting_positions)
+        if reach_target(pos_to_eval, **kwargs):
+            current_best = update_current_best(current_best, pos_to_eval, **kwargs)
+            continue
+        if early_exit(
+            pos_to_eval, visited=visited, current_best=current_best, **kwargs
+        ):
+            continue
+        update_visited(visited, pos_to_eval)
+        for state in get_next_states(pos_to_eval, visited=visited, **kwargs):
+            heapq.heappush(starting_positions, state)
     return current_best
 
 
