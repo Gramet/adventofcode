@@ -6,32 +6,35 @@ INPUT_FILE = Path(__file__).parent / "input"
 from heapq import heapify
 
 
-
 class Solution:
     def __init__(self):
         self.input = read_input(INPUT_FILE)
         AOC_CHR_MAP.update({">": 2, "^": 3, "<": 4, "v": 5})
         self.map = ascii_image_to_map(self.input)
-        self.start_pos = (0,1)
+        self.start_pos = (0, 1)
         self.end_pos = max(self.map, key=lambda x: x if self.map[x] == 0 else (0, 0))
-        self.crossings = [pos for pos in self.map if self.map[pos] == 0 and sum(
-                    self.map.get((pos[0] + d[0], pos[1] + d[1]), 0) != 1
-                    for d in deltas4_2d
-                )!=2
-                ]
+        self.crossings = [
+            pos
+            for pos in self.map
+            if self.map[pos] == 0
+            and sum(
+                self.map.get((pos[0] + d[0], pos[1] + d[1]), 0) != 1 for d in deltas4_2d
+            )
+            != 2
+        ]
         self.crossings += [self.start_pos, self.end_pos]
         self.graph = {pos: self.walk_from(pos) for pos in self.crossings}
 
     def find_next_pos(self, pos, cur_dir):
         next_pos = (pos[0] + cur_dir[0], pos[1] + cur_dir[1])
-        if next_pos in self.map and self.map[next_pos] !=1:
+        if next_pos in self.map and self.map[next_pos] != 1:
             return next_pos, cur_dir
         else:
             for delta in deltas4_2d:
                 if delta == cur_dir or delta == (-cur_dir[0], -cur_dir[1]):
                     continue
                 next_pos = (pos[0] + delta[0], pos[1] + delta[1])
-                if next_pos in self.map and self.map[next_pos] !=1:
+                if next_pos in self.map and self.map[next_pos] != 1:
                     return next_pos, delta
         return None, None
 
@@ -42,7 +45,7 @@ class Solution:
             if next_pos in self.map and self.map[next_pos] != 1:
                 step = 1
                 cur_dir = delta
-                while (next_pos not in self.crossings):
+                while next_pos not in self.crossings:
                     next_pos, cur_dir = self.find_next_pos(next_pos, cur_dir)
                     step += 1
                 if next_pos is not None:
@@ -56,7 +59,7 @@ class Solution:
             if next_pos not in path:
                 next_path = path + (next_pos,)
                 next_score = score + step
-                return (next_score, next_pos,next_path)
+                return (next_score, next_pos, next_path)
 
         return None
 
