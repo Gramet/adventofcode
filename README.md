@@ -6,7 +6,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2015-0%20stars-ef0f14)](./2015)
 [![](https://img.shields.io/badge/2016-0%20stars-ef0f14)](./2016)
 [![](https://img.shields.io/badge/2017-0%20stars-ef0f14)](./2017)
-[![](https://img.shields.io/badge/2018-18%20stars-755e1d)](./2018)
+[![](https://img.shields.io/badge/2018-20%20stars-6e621d)](./2018)
 [![](https://img.shields.io/badge/2019-50%20stars-239323)](./2019)
 [![](https://img.shields.io/badge/2020-50%20stars-239323)](./2020)
 [![](https://img.shields.io/badge/2021-50%20stars-239323)](./2021)
