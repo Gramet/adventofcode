@@ -24,22 +24,33 @@ class Solution:
             print_2d_image(map_)
 
     def solve_part_1(self):
-        i = 0
-        while any(point[0] > 300 or point[0] < -300 for point in self.points):
+        self.part2 = 0
+        cur_range = 99999999
+        while True:
+            self.part2 += 1
             self.move_points()
-            print(i, max(p[0] for p in self.points))
-            i += 1
+            new_range = max(point[0] for point in self.points) - min(
+                point[0] for point in self.points
+            )
+            if new_range > cur_range:
+                break
+            cur_range = new_range
 
-        for _ in range(20):
-            i += 1
-            print(i)  # This solves part 2
-            self.move_points(display=True)
-        answer = "None"
+        self.points = [
+            [point[0] - point[2], point[1] - point[3], point[2], point[3]]
+            for point in self.points
+        ]
+        self.part2 -= 1
+        map_ = defaultdict(int)
+        for point in self.points:
+            map_[(point[1], point[0])] = 1
+        print_2d_image(map_)
+        answer = "NBRALZPH"
         print(answer)
         return answer
 
     def solve_part_2(self):
-        answer = "None"
+        answer = self.part2
         print(answer)
         return answer
 
