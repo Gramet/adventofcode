@@ -39,6 +39,10 @@ def parse_words(string) -> list[str]:
     return re.findall(r"[a-zA-Z]+", string)
 
 
+def parse_capitals(string) -> list[str]:
+    return re.findall(r"[A-Z]+", string)
+
+
 ## 2d Map and images
 
 deltas4_2d = [(0, 1), (1, 0), (0, -1), (-1, 0)]
