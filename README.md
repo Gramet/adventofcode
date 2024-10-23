@@ -6,12 +6,13 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2015-0%20stars-ef0f14)](./2015)
 [![](https://img.shields.io/badge/2016-0%20stars-ef0f14)](./2016)
 [![](https://img.shields.io/badge/2017-0%20stars-ef0f14)](./2017)
-[![](https://img.shields.io/badge/2018-22%20stars-68671e)](./2018)
+[![](https://img.shields.io/badge/2018-24%20stars-626a1e)](./2018)
 [![](https://img.shields.io/badge/2019-50%20stars-239323)](./2019)
 [![](https://img.shields.io/badge/2020-50%20stars-239323)](./2020)
 [![](https://img.shields.io/badge/2021-50%20stars-239323)](./2021)
 [![](https://img.shields.io/badge/2022-50%20stars-239323)](./2022)
 [![](https://img.shields.io/badge/2023-50%20stars-239323)](./2023)
+[![](https://img.shields.io/badge/2024-0%20stars-ef0f14)](./2024)
 <!-- end-year-badge -->
 
 # Install
