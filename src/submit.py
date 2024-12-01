@@ -1,6 +1,7 @@
 """Submit answers
 Take as input the day, part and year (defaults to 2022)
 """
+
 import fire
 import requests
 

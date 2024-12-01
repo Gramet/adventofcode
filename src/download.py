@@ -1,4 +1,5 @@
 """Download input for a given day and year (defaults to 2022)"""
+
 import fire
 import requests
 

@@ -42,9 +42,9 @@ class Solution:
                 max(min(int(x), self.offset + 1), -self.offset - 1) + self.offset
                 for x in re.findall(r"-?\d+", line)
             ]
-            self.cube[
-                start_x : end_x + 1, start_y : end_y + 1, start_z : end_z + 1
-            ] = val
+            self.cube[start_x : end_x + 1, start_y : end_y + 1, start_z : end_z + 1] = (
+                val
+            )
 
         answer = int(self.cube.sum(axis=None))
         print(answer)

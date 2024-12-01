@@ -1,6 +1,7 @@
 """Run solution.py for a particular day
 Take as input the day, part and year (defaults to 2022)
 """
+
 from subprocess import call
 
 import fire

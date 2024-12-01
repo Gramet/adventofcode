@@ -3,32 +3,29 @@ from pathlib import Path
 from aoc_utils import *
 
 INPUT_FILE = Path(__file__).parent / "input"
-import networkx as nx
 
 
 class Solution:
     def __init__(self):
         self.input = read_input(INPUT_FILE)
-        self.edge_list = []
-        for line in self.input:
-            node, dest = line.strip().split(": ")
-            for dest_node in dest.split():
-                self.edge_list.append((node, dest_node))
-
-        self.graph = nx.from_edgelist(self.edge_list)
-
-        print(self.graph)
 
     def solve_part_1(self):
-        self.graph.remove_edges_from(nx.minimum_edge_cut(self.graph))
-        components = list(nx.connected_components(self.graph))
-        answer = len(components[0]) * len(components[1])
-
+        answer = 0
+        self.left_numbers = []
+        self.right_numbers = []
+        for line in self.input:
+            a, b = line.split()
+            self.left_numbers.append(int(a))
+            self.right_numbers.append(int(b))
+        for a, b in zip(sorted(self.left_numbers), sorted(self.right_numbers)):
+            answer += abs(int(a) - int(b))
         print(answer)
         return answer
 
     def solve_part_2(self):
-        answer = "None"
+        answer = 0
+        for a in self.left_numbers:
+            answer += self.right_numbers.count(a) * a
         print(answer)
         return answer
 

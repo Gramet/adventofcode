@@ -15,6 +15,7 @@ tqdm = "*"
 scipy = "*"
 typer = "*"
 sympy = "*"
+networkx = "*"
 
 [dev-packages]
 pytest = "*"

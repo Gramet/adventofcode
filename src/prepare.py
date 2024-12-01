@@ -1,4 +1,5 @@
 """CLI to prepare folder for a given year"""
+
 import shutil
 
 import fire
