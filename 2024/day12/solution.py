@@ -13,9 +13,8 @@ class Solution:
             self.input, chr_map={x: x for x in ascii_uppercase}
         )
 
-    def check_neighbours(self, pos, plant):
-        for dir in deltas4_2d:
-            neigh = (pos[0] + dir[0], pos[1] + dir[1])
+    def check_neighbours(self, pos: Point2D, plant):
+        for neigh in pos.neighbours(deltas4_2d):
             if (
                 neigh not in self.pos_in_region
                 and neigh in self.map
@@ -42,8 +41,7 @@ class Solution:
             area = len(positions)
             perimeter = 0
             for pos in positions:
-                for dir in deltas4_2d:
-                    neigh = (pos[0] + dir[0], pos[1] + dir[1])
+                for neigh in pos.neighbours(deltas4_2d):
                     if neigh not in positions:
                         perimeter += 1
             answer += area * perimeter
@@ -58,7 +56,7 @@ class Solution:
             edges = {(0, 1): [], (1, 0): [], (0, -1): [], (-1, 0): []}
             for pos in sorted(positions):
                 for dir in deltas4_2d:
-                    neigh = (pos[0] + dir[0], pos[1] + dir[1])
+                    neigh = pos + dir
                     if neigh not in positions:
                         if len(edges[dir]) == 0:
                             edges[dir].append([pos])
@@ -66,14 +64,7 @@ class Solution:
                             part_of_fence = False
                             for fence in edges[dir]:
                                 side_dir = (dir[1], dir[0])
-                                anti_dir = (-side_dir[0], -side_dir[1])
-                                if (
-                                    pos[0] + side_dir[0],
-                                    pos[1] + side_dir[1],
-                                ) in fence or (
-                                    pos[0] + anti_dir[0],
-                                    pos[1] + anti_dir[1],
-                                ) in fence:
+                                if pos + side_dir in fence or pos - side_dir in fence:
                                     fence.append(pos)
                                     part_of_fence = True
                             if not part_of_fence:

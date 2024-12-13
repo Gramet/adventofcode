@@ -2,7 +2,7 @@ import heapq
 import re
 from collections import defaultdict
 from pathlib import Path
-from typing import Callable
+from typing import Callable, NamedTuple
 
 import numpy as np
 
@@ -51,6 +51,43 @@ deltas8_2d = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 
 deltas9_2d = deltas8_2d + [(0, 0)]
 
 
+class Point2D(NamedTuple):
+    "2D point"
+
+    x: int
+    y: int
+
+    def __add__(self, other):
+        if isinstance(other, Point2D):
+            return Point2D(self.x + other.x, self.y + other.y)
+        elif isinstance(other, tuple):
+            return Point2D(self.x + other[0], self.y + other[1])
+        else:
+            raise TypeError
+
+    def __sub__(self, other):
+        if isinstance(other, Point2D):
+            return Point2D(self.x - other.x, self.y - other.y)
+        elif isinstance(other, tuple):
+            return Point2D(self.x - other[0], self.y - other[1])
+        else:
+            raise TypeError
+
+    def neighbours(self, dirs):
+        for dir in dirs:
+            yield self + dir
+
+    def manhattan_distance(self, other):
+        if isinstance(other, Point2D):
+            other_coos = [other.x, other.y]
+        elif isinstance(other, tuple):
+            other_coos = [other[0], other[1]]
+        else:
+            raise TypeError
+
+        return manhattan_distance([self.x, self.y], other_coos)
+
+
 def manhattan_distance(a, b) -> int:
     return sum(abs(aa - bb) for aa, bb in zip(a, b))
 
@@ -69,11 +106,11 @@ def get_min_coos(d: dict):
 
 def ascii_image_to_map(
     image: list[str], chr_map: dict[str, int] = AOC_CHR_MAP
-) -> defaultdict:
+) -> defaultdict[Point2D, int]:
     res = defaultdict(int)
     for r, line in enumerate(image):
         for c, chr in enumerate(line.strip()):
-            res[(r, c)] = chr_map[chr]
+            res[Point2D(r, c)] = chr_map[chr]
     return res
 
 
@@ -82,7 +119,7 @@ def print_2d_image(d: dict, int_map: dict[int, str] = AOC_INT_MAP):
     img_str = ""
     for r in range(min_r, max_r + 1):
         for c in range(min_c, max_c + 1):
-            img_str += int_map[d[(r, c)]]
+            img_str += int_map[d[Point2D(r, c)]]
         img_str += "\n"
     img_str += "\n"
     print(img_str)
