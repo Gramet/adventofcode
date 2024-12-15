@@ -73,6 +73,14 @@ class Point2D(NamedTuple):
         else:
             raise TypeError
 
+    def __eq__(self, other):
+        if isinstance(other, Point2D):
+            return self.x == other.x and self.y == other.y
+        elif isinstance(other, tuple):
+            return self.x == other[0] and self.y == other[1]
+        else:
+            raise TypeError
+
     def neighbours(self, dirs):
         for dir in dirs:
             yield self + dir
@@ -94,6 +102,7 @@ def manhattan_distance(a, b) -> int:
 
 AOC_INT_MAP = {1: "#", 0: "."}
 AOC_CHR_MAP = {"#": 1, ".": 0}
+AOC_MOVE_DICT = {"^": (-1, 0), ">": (0, 1), "<": (0, -1), "v": (1, 0)}
 
 
 def get_min_coos(d: dict):
@@ -122,7 +131,7 @@ def print_2d_image(d: dict, int_map: dict[int, str] = AOC_INT_MAP):
             img_str += int_map[d[Point2D(r, c)]]
         img_str += "\n"
     img_str += "\n"
-    print(img_str)
+    print(img_str, end="\r")
 
 
 def ascii_image_to_numpy(
