@@ -12,4 +12,4 @@ build-backend = "setuptools.build_meta"
 aoc = "cli:main"
 
 [tool.isort]
-profile="black"
+profile = "black"

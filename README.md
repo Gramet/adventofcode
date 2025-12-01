@@ -1,4 +1,5 @@
 # adventofcode
+
 My solution for Advent of Code problems
 
 # Completion
@@ -13,6 +14,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2022-50%20stars-239323)](./2022)
 [![](https://img.shields.io/badge/2023-50%20stars-239323)](./2023)
 [![](https://img.shields.io/badge/2024-50%20stars-239323)](./2024)
+[![](https://img.shields.io/badge/2025-2%20stars-c62917)](./2025)
 <!-- end-year-badge -->
 
 # Install
@@ -22,7 +24,9 @@ My solution for Advent of Code problems
 3. Install requirements using `pipenv install`
 
 ## Helpers
+
 The package will install a typer-based cli named `aoc`. You can use it as follow:
+
 - `aoc prepare 2022`: Will create the directories for each day of year 2022 using the template in `year_template`.
 - `aoc download 1 2022`: Will download the input for problem 1 of year 2022 (NB: You need to run `prepare_year` first).
 - `aoc run 1 2022`: Will run the `solution.py` file for problem 1 of year 2022.
@@ -32,7 +36,7 @@ The package will install a typer-based cli named `aoc`. You can use it as follow
 By default, `day` and `year` values are the current day and year. Run `aoc --help` for more details
 
 ## Workflow
+
 - When data become available, run `aoc download`.
 - Implement your solution in the `solve_part_1` and `solve_part_2` functions.
 - Use `aoc submit` to submit any part once you are satisfied with it. You'll get any error message from AoC in the terminal.
-

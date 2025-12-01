@@ -16,6 +16,9 @@ scipy = "*"
 typer = "*"
 sympy = "*"
 networkx = "*"
+schemdraw = "*"
+matplotlib = "*"
+aoc = {file = ".", editable = true}
 
 [dev-packages]
 pytest = "*"
