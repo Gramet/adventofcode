@@ -14,7 +14,7 @@ My solution for Advent of Code problems
 [![](https://img.shields.io/badge/2022-50%20stars-239323)](./2022)
 [![](https://img.shields.io/badge/2023-50%20stars-239323)](./2023)
 [![](https://img.shields.io/badge/2024-50%20stars-239323)](./2024)
-[![](https://img.shields.io/badge/2025-6%20stars-a83d19)](./2025)
+[![](https://img.shields.io/badge/2025-8%20stars-9d441a)](./2025)
 <!-- end-year-badge -->
 
 # Install
