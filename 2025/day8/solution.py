@@ -15,7 +15,7 @@ class Solution:
 
     def solve_part_1(self):
         dist_mat = {
-            tuple(sorted((b1, b2))): b1.euclidean_distance(b2)
+            (b1, b2): b1.euclidean_distance(b2)
             for i, b1 in enumerate(self.boxes)
             for b2 in self.boxes[i + 1 :]
         }
