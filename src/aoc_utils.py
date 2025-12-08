@@ -96,6 +96,64 @@ class Point2D(NamedTuple):
         return manhattan_distance([self.x, self.y], other_coos)
 
 
+class Point3D(NamedTuple):
+    "3D point"
+
+    x: int
+    y: int
+    z: int
+
+    def __add__(self, other):
+        if isinstance(other, Point3D):
+            return Point3D(self.x + other.x, self.y + other.y, self.z + other.z)
+        elif isinstance(other, tuple):
+            return Point3D(self.x + other[0], self.y + other[1], self.z + other[2])
+        else:
+            raise TypeError
+
+    def __sub__(self, other):
+        if isinstance(other, Point3D):
+            return Point3D(self.x - other.x, self.y - other.y, self.z - other.z)
+        elif isinstance(other, tuple):
+            return Point3D(self.x - other[0], self.y - other[1], self.z - other[2])
+        else:
+            raise TypeError
+
+    def __eq__(self, other):
+        if isinstance(other, Point3D):
+            return self.x == other.x and self.y == other.y and self.z == other.z
+        elif isinstance(other, tuple):
+            return self.x == other[0] and self.y == other[1] and self.z == other[2]
+        else:
+            raise TypeError
+
+    def neighbours(self, dirs):
+        for dir in dirs:
+            yield self + dir
+
+    def manhattan_distance(self, other):
+        if isinstance(other, Point3D):
+            other_coos = [other.x, other.y, other.z]
+        elif isinstance(other, tuple):
+            other_coos = [other[0], other[1], other[2]]
+        else:
+            raise TypeError
+
+        return manhattan_distance([self.x, self.y, self.z], other_coos)
+
+    def euclidean_distance(self, other):
+        if isinstance(other, Point3D):
+            other_coos = [other.x, other.y, other.z]
+        elif isinstance(other, tuple):
+            other_coos = [other[0], other[1], other[2]]
+        else:
+            raise TypeError
+
+        return np.sqrt(
+            sum((a - b) ** 2 for a, b in zip([self.x, self.y, self.z], other_coos))
+        )
+
+
 def manhattan_distance(a, b) -> int:
     return sum(abs(aa - bb) for aa, bb in zip(a, b))
 
