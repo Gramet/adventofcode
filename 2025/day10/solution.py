@@ -75,17 +75,12 @@ class Solution:
             b = joltage
             m, n = A.shape
 
-            c = np.hstack([np.zeros(n), np.ones(n)])
+            c = np.hstack([np.ones(n), np.zeros(n)])
             A_eq = np.hstack([A, np.zeros((m, n))])
             b_eq = b
 
-            A_ub_top = np.hstack([np.eye(n), -np.eye(n)])
-            A_ub_bot = np.hstack([-np.eye(n), -np.eye(n)])
-            A_ub = np.vstack([A_ub_top, A_ub_bot])
-            b_ub = np.zeros(2 * n)
-            res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, integrality=1)
+            res = linprog(c, A_eq=A_eq, b_eq=b_eq, integrality=1)
             answer += int(res.fun)
-
         print(answer)
         return answer
 
